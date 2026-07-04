@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denvasweb | Rescate de Sitios Web — Moderniza tu Sitio Sin Empezar de Cero</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #080808;
+  --white: #f5f0e8;
+  --cream: #ede8dc;
+  --gold: #c9a84c;
+  --gold-light: #e8c96a;
+  --gray: #9a9488;
+  --dark-gray: #1a1a17;
+  --card-bg: #111110;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.08s ease;
+  opacity: 0.5;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 3px;
+  color: var(--white);
+}
+.nav-logo span { color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--black) !important;
+  background: var(--gold);
+  padding: 10px 24px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 8rem 4rem 4rem;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 30px; height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px, 8vw, 110px);
+  line-height: 0.9;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 2rem;
+}
+.hero h1 em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.85em;
+}
+
+.hero-desc {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--gray);
+  font-weight: 300;
+  margin-bottom: 3rem;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: none;
+}
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(201,168,76,0.2);
+}
+.btn-primary svg { transition: transform 0.2s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+
+.btn-secondary {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(154,148,136,0.3);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-secondary:hover { color: var(--white); border-color: var(--white); }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.stat-box {
+  background: var(--card-bg);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.8s ease both;
+}
+.stat-box:nth-child(1) { animation-delay: 0.1s; }
+.stat-box:nth-child(2) { animation-delay: 0.2s; }
+.stat-box:nth-child(3) { animation-delay: 0.3s; }
+.stat-box:nth-child(4) { animation-delay: 0.4s; }
+
+.stat-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.stat-box:hover::after { opacity: 1; }
+
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.problem {
+  padding: 8rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.section-tag::after {
+  content: '';
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.problem h2 {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 4rem;
+  max-width: 700px;
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.04);
+}
+
+.pain-item {
+  background: var(--black);
+  padding: 2.5rem;
+  border-top: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+.pain-item:hover { border-top-color: var(--gold); }
+
+.pain-icon { font-size: 28px; margin-bottom: 1.25rem; }
+.pain-item h3 { font-size: 17px; font-weight: 500; color: var(--white); margin-bottom: 0.75rem; }
+.pain-item p { font-size: 14px; line-height: 1.7; color: var(--gray); }
+
+.services {
+  padding: 8rem 4rem;
+  background: var(--dark-gray);
+  position: relative;
+  overflow: hidden;
+}
+.services::before {
+  content: 'RESCATE';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20vw;
+  color: rgba(255,255,255,0.015);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 10px;
+}
+
+.services-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.services h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 80px);
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+.services h2 span { color: var(--gold); }
+
+.services-sub {
+  font-size: 16px;
+  color: var(--gray);
+  margin-bottom: 4rem;
+  font-weight: 300;
+}
+
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: rgba(201,168,76,0.08);
+}
+
+.service-card {
+  background: var(--dark-gray);
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+  cursor: none;
+}
+.service-card:hover { background: #1f1f1c; }
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--gold);
+  transition: height 0.4s ease;
+}
+.service-card:hover::before { height: 100%; }
+
+.service-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  color: rgba(201,168,76,0.12);
+  line-height: 1;
+  position: absolute;
+  top: 1.5rem; right: 2rem;
+  transition: color 0.3s;
+}
+.service-card:hover .service-number { color: rgba(201,168,76,0.22); }
+
+.service-icon { font-size: 32px; margin-bottom: 1.5rem; display: block; }
+
+.service-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.service-price {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 19px;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.service-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.service-features li {
+  font-size: 13px;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.service-features li::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.process {
+  padding: 8rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.process h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 5vw, 72px);
+  letter-spacing: 3px;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+.process h2 span { color: var(--gold); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  gap: 0;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.step { padding: 0 1.5rem; text-align: center; position: relative; }
+
+.step-num {
+  width: 80px; height: 80px;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--gold);
+  background: var(--black);
+  position: relative;
+  z-index: 2;
+  transition: background 0.3s, border-color 0.3s;
+}
+.step:hover .step-num { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+.step h3 { font-size: 16px; font-weight: 500; color: var(--white); margin-bottom: 0.75rem; }
+.step p { font-size: 13px; line-height: 1.65; color: var(--gray); }
+
+.proof { padding: 8rem 4rem; background: var(--dark-gray); }
+.proof-inner { max-width: 1200px; margin: 0 auto; }
+
+.proof h2 {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(36px, 4vw, 52px);
+  text-align: center;
+  margin-bottom: 4rem;
+  color: var(--white);
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: rgba(201,168,76,0.08);
+}
+
+.testimonial { background: var(--dark-gray); padding: 2.5rem; transition: background 0.3s; }
+.testimonial:hover { background: #1f1f1c; }
+
+.stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 1.25rem; }
+
+.testimonial blockquote {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.author-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--gold);
+}
+.author-info p:first-child { font-size: 14px; font-weight: 500; color: var(--white); }
+.author-info p:last-child { font-size: 12px; color: var(--gray); }
+
+.results {
+  padding: 8rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.results-text .section-tag { margin-bottom: 1.5rem; }
+
+.results-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 5vw, 70px);
+  letter-spacing: 2px;
+  line-height: 0.95;
+  margin-bottom: 2rem;
+}
+.results-text h2 span { color: var(--gold); }
+
+.results-text p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--gray);
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.results-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(201,168,76,0.1);
+}
+.metric { background: var(--black); padding: 2rem; text-align: center; }
+.metric-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.metric-desc { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); }
+
+.cta-section {
+  padding: 8rem 4rem;
+  background: var(--dark-gray);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+}
+
+.cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+
+.cta-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 7vw, 96px);
+  letter-spacing: 3px;
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+}
+.cta-section h2 span { color: var(--gold); }
+
+.cta-section p {
+  font-size: 17px;
+  color: var(--gray);
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.contact-form {
+  background: var(--black);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 4px;
+  padding: 3rem;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1.25rem; }
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: rgba(154,148,136,0.5); }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: rgba(201,168,76,0.5); }
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-group select option { background: #111; }
+
+.form-submit {
+  width: 100%;
+  background: var(--gold);
+  color: var(--black);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px;
+  border: none;
+  border-radius: 2px;
+  cursor: none;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 0.5rem;
+}
+.form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+.form-submit:disabled { opacity: 0.6; transform: none; }
+
+.form-note { text-align: center; font-size: 12px; color: var(--gray); margin-top: 1rem; }
+
+.form-success { display: none; text-align: center; padding: 3rem; }
+.form-success h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.form-success p { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+footer {
+  padding: 3rem 4rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; }
+.footer-logo span { color: var(--gold); }
+
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 12px; color: rgba(154,148,136,0.5); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav { padding: 1.25rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+  .hero h1 { font-size: 56px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .problem, .process, .results { padding: 4rem 1.5rem; }
+  .services, .proof, .cta-section { padding: 4rem 1.5rem; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .service-cards { grid-template-columns: 1fr; }
+  .testimonials { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .steps::before { display: none; }
+  .results { grid-template-columns: 1fr; gap: 3rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-form { padding: 2rem 1.5rem; }
+  footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>DENVASWEB</span></div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Planes</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#resultados">Resultados</a></li>
+    <li><a href="#contacto" class="nav-cta">Diagnóstico gratis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow">Rescate y Modernización Web</div>
+      <h1>Tu sitio web no necesita <em>empezar de cero</em></h1>
+      <p class="hero-desc">Tienes una web, pero está vieja, lenta o ya no representa tu negocio. La rescatamos: la modernizamos, la hacemos rápida y la ponemos a trabajar para traerte clientes — sin perder lo que ya construiste.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">
+          Quiero mi diagnóstico
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#servicios" class="btn-secondary">Ver planes</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-number">48H</div>
+        <div class="stat-label">Diagnóstico entregado</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">0%</div>
+        <div class="stat-label">Pérdida de ranking SEO</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">2-3</div>
+        <div class="stat-label">Semanas de entrega</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Tu contenido, mejor presentado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-tag">El problema</div>
+  <h2 class="animate">¿Tu sitio web te da pena cuando alguien lo abre desde su celular?</h2>
+  <div class="pain-grid">
+    <div class="pain-item animate">
+      <div class="pain-icon">🐌</div>
+      <h3>Lento y desactualizado</h3>
+      <p>Tu sitio fue moderno hace 8 años. Hoy carga lento, se ve roto en el celular y los clientes se van antes de leer lo que ofreces.</p>
+    </div>
+    <div class="pain-item animate">
+      <div class="pain-icon">📉</div>
+      <h3>Google ya no te muestra</h3>
+      <p>Plataformas viejas, sin SSL o sin optimización mueven tu negocio al fondo de los resultados de búsqueda, mientras tu competencia sube.</p>
+    </div>
+    <div class="pain-item animate">
+      <div class="pain-icon">😰</div>
+      <h3>Miedo a perder lo que ya tienes</h3>
+      <p>Sabes que necesitas un cambio, pero te preocupa perder tu posicionamiento, tu contenido o gastar de más en un sitio nuevo desde cero.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="services-inner">
+    <div class="section-tag">Nuestros planes</div>
+    <h2 class="animate">Rescatamos tu sitio, <span>no lo reemplazamos</span></h2>
+    <p class="services-sub animate">Elige el nivel de rescate que tu negocio necesita hoy</p>
+    <div class="service-cards">
+      <div class="service-card animate">
+        <span class="service-number">01</span>
+        <span class="service-icon">🔍</span>
+        <h3>Diagnóstico de Salud Web</h3>
+        <div class="service-price">Gratis</div>
+        <p>Antes de tocar nada, auditamos tu sitio actual: velocidad, mobile, SEO y seguridad. Te entregamos un reporte claro con lo que está fallando y por qué.</p>
+        <ul class="service-features">
+          <li>Auditoría de velocidad y mobile</li>
+          <li>Revisión de SEO y seguridad</li>
+          <li>Reporte en PDF en 48 horas</li>
+          <li>Sin compromiso de compra</li>
+        </ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">02</span>
+        <span class="service-icon">⚡</span>
+        <h3>Rescate Express</h3>
+        <div class="service-price">Desde $1,800</div>
+        <p>Para sitios que solo necesitan un refresh: nueva imagen visual, velocidad, mobile y SEO básico. Tu mismo contenido, mucho mejor presentado.</p>
+        <ul class="service-features">
+          <li>Diseño visual actualizado</li>
+          <li>Optimización mobile y velocidad</li>
+          <li>SEO básico sin perder posicionamiento</li>
+          <li>Entrega en 1-2 semanas</li>
+        </ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">03</span>
+        <span class="service-icon">🛠️</span>
+        <h3>Modernización Completa</h3>
+        <div class="service-price">Desde $6,000</div>
+        <p>Rediseño completo de tu sitio, migración a una plataforma moderna y segura, y una estructura pensada para convertir visitas en clientes.</p>
+        <ul class="service-features">
+          <li>Todo lo del Rescate Express</li>
+          <li>Migración de plataforma sin perder SEO</li>
+          <li>Nueva estructura orientada a conversión</li>
+          <li>3 meses de mantenimiento incluidos</li>
+        </ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">04</span>
+        <span class="service-icon">🔧</span>
+        <h3>Plan de Mantenimiento</h3>
+        <div class="service-price">Desde $80/mes</div>
+        <p>Tu sitio rescatado se mantiene rápido y seguro. Actualizaciones, backups, monitoreo y pequeños cambios incluidos cada mes.</p>
+        <ul class="service-features">
+          <li>Actualizaciones y backups</li>
+          <li>Monitoreo de velocidad y seguridad</li>
+          <li>Cambios menores incluidos</li>
+          <li>Soporte directo por WhatsApp</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="proceso">
+  <div class="section-tag" style="justify-content:center">Cómo rescatamos tu sitio</div>
+  <h2 class="animate">De <span>diagnóstico</span> a sitio nuevo</h2>
+  <div class="steps">
+    <div class="step animate">
+      <div class="step-num">01</div>
+      <h3>Diagnóstico gratuito</h3>
+      <p>Auditamos tu sitio actual y te mostramos exactamente qué está frenando tus resultados.</p>
+    </div>
+    <div class="step animate">
+      <div class="step-num">02</div>
+      <h3>Plan de rescate</h3>
+      <p>Te proponemos el plan correcto según tu presupuesto y lo que tu negocio realmente necesita.</p>
+    </div>
+    <div class="step animate">
+      <div class="step-num">03</div>
+      <h3>Migración cuidada</h3>
+      <p>Rediseñamos y migramos protegiendo tu SEO con redirecciones correctas, sin perder tráfico.</p>
+    </div>
+    <div class="step animate">
+      <div class="step-num">04</div>
+      <h3>Entrega y soporte</h3>
+      <p>Lanzamos tu sitio renovado y seguimos cerca con mantenimiento si lo necesitas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="proof">
+  <div class="proof-inner">
+    <h2 class="animate">Negocios que rescatamos antes de que perdieran más clientes</h2>
+    <div class="testimonials">
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Mi sitio tenía 9 años y ni siquiera se veía bien en el celular. Pensé que tendría que pagar por uno completamente nuevo, pero lo rescataron y quedó mejor de lo que imaginé."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">MR</div>
+          <div class="author-info">
+            <p>Miguel Ramírez</p>
+            <p>Taller Mecánico, Nueva Jersey</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Me daba miedo perder mi posicionamiento en Google si tocaban algo. Lo manejaron con mucho cuidado y hasta mejoramos en los resultados de búsqueda."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">SV</div>
+          <div class="author-info">
+            <p>Sandra Vargas</p>
+            <p>Clínica Dental, Florida</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"El diagnóstico gratis me abrió los ojos. No sabía que mi sitio cargaba tan lento. Dos semanas después tenía un sitio nuevo y empezaron a llegar más solicitudes de cotización."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">JT</div>
+          <div class="author-info">
+            <p>Jorge Torres</p>
+            <p>Construcción y Remodelación, Texas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="resultados">
+  <div class="results-text animate">
+    <div class="section-tag">Resultados reales</div>
+    <h2>Un sitio rescatado <span>trabaja</span> para ti</h2>
+    <p>No prometemos magia. Prometemos un proceso cuidadoso que protege lo que ya construiste y arregla lo que te está costando clientes. Cada rescate incluye un reporte de antes y después.</p>
+    <a href="#contacto" class="btn-primary" style="display:inline-flex">
+      Quiero rescatar mi sitio
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+  <div class="results-metrics animate">
+    <div class="metric">
+      <div class="metric-val">+65%</div>
+      <div class="metric-desc">Mejora promedio en velocidad</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">100%</div>
+      <div class="metric-desc">SEO protegido en migración</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">2-3</div>
+      <div class="metric-desc">Semanas de entrega típica</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">90%</div>
+      <div class="metric-desc">Clientes que agregan mantenimiento</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + FORM -->
+<section class="cta-section" id="contacto">
+  <div class="cta-inner">
+    <div class="section-tag" style="justify-content:center">Empieza con un diagnóstico gratis</div>
+    <h2 class="animate">¿Le damos <span>vida nueva</span> a tu sitio?</h2>
+    <p class="animate">Cuéntanos sobre tu sitio actual y te enviamos un diagnóstico gratuito con lo que encontramos. Sin compromiso.</p>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-form animate" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tu nombre</label>
+          <input type="text" id="fname" placeholder="Ej: Carlos García">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp / Teléfono</label>
+          <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>URL de tu sitio actual</label>
+        <input type="text" id="business" placeholder="Ej: www.tunegocio.com">
+      </div>
+      <div class="form-group">
+        <label>¿Qué plan te interesa?</label>
+        <select id="service">
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option>Diagnóstico de Salud Web (Gratis)</option>
+          <option>Rescate Express</option>
+          <option>Modernización Completa</option>
+          <option>Plan de Mantenimiento</option>
+          <option>No sé, quiero una recomendación</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Cuéntanos más (opcional)</label>
+        <textarea id="message" placeholder="¿Qué problema notas en tu sitio actual? ¿En qué plataforma está hecho?"></textarea>
+      </div>
+      <button class="form-submit" id="submitBtn" onclick="submitForm()">Quiero mi diagnóstico gratis →</button>
+      <p class="form-note">🔒 Tus datos están seguros. Te contactamos en menos de 24 horas.</p>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="form-success" id="formSuccess">
+      <div style="font-size:48px;margin-bottom:1rem;">🎉</div>
+      <h3>¡Mensaje recibido!</h3>
+      <p>Gracias por confiar en Denvasweb. Te contactaremos en menos de 24 horas para revisar tu sitio.<br><br>
+      Mientras tanto, <strong style="color:var(--gold)">revisa tu WhatsApp</strong> — te enviamos un mensaje con los primeros pasos.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">DENVASWEB<span> | Rescate Web</span></div>
+  <ul class="footer-links">
+    <li><a href="#servicios">Planes</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#resultados">Resultados</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="footer-copy">© <span id="year"></span> Denvasweb LLC. Todos los derechos reservados.</div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX - 5 + 'px';
+  cursor.style.top = mouseY - 5 + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX - 18) * 0.12;
+  ringY += (mouseY - ringY - 18) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, input, select, textarea').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2)'; ring.style.transform = 'scale(1.5)'; ring.style.opacity = '0.3'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; ring.style.opacity = '0.5'; });
+});
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// Auto year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Form submit — Formspree + WhatsApp
+async function submitForm() {
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const biz = document.getElementById('business').value.trim();
+  const svc = document.getElementById('service').value;
+  const msg = document.getElementById('message').value.trim();
+
+  // Validacion
+  if (!name || !phone || !biz || !svc) {
+    [{id:'fname',val:name},{id:'phone',val:phone},
+     {id:'business',val:biz},{id:'service',val:svc}].forEach(f => {
+      if (!f.val) {
+        const el = document.getElementById(f.id);
+        el.style.borderColor = 'rgba(226,75,74,0.6)';
+        setTimeout(() => el.style.borderColor = '', 2000);
+      }
+    });
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  // Enviar a Formspree
+  try {
+    await fetch('https://formspree.io/f/mqeoakpw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        nombre: name,
+        telefono: phone,
+        sitio_actual: biz,
+        plan: svc,
+        mensaje: msg || 'No especificado'
+      })
+    });
+  } catch(e) {
+    console.log('Formspree error:', e);
+  }
+
+  // Mostrar pantalla de exito
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+
+  // Abrir WhatsApp 1.5 segundos despues
+  const texto = `Hola Denys! 👋 Me llamo *${name}*.%0AMi sitio actual es: *${biz}*.%0AMe interesa el plan: *${svc}*.%0AMi teléfono es: ${phone}.${msg ? '%0A%0AAdicional: ' + msg : ''}`;
+  setTimeout(() => {
+    window.open(`https://wa.me/19299944649?text=${texto}`, '_blank');
+  }, 1500);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denvasweb — Redes Sociales & Publicidad que Vende</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #080808; --white: #f5f0e8; --gold: #c9a84c;
+  --gold-light: #e8c96a; --gray: #9a9488; --dark-gray: #1a1a17; --card-bg: #111110;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; cursor: none; }
+
+/* CURSOR */
+.cursor { width: 10px; height: 10px; background: var(--gold); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; mix-blend-mode: difference; }
+.cursor-ring { width: 36px; height: 36px; border: 1px solid var(--gold); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: all 0.08s ease; opacity: 0.5; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 4rem;
+  background: rgba(8,8,8,0.82); backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 4px;
+  color: var(--white); display: flex; align-items: center; gap: 10px;
+}
+.nav-logo::before { content: ''; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+.nav-right { display: flex; align-items: center; gap: 1.75rem; }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+.nav-links li { position: relative; }
+.nav-links > li > a:not(.nav-cta) {
+  font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gray); text-decoration: none; transition: color 0.25s; position: relative; padding-bottom: 4px;
+}
+.nav-links > li > a:not(.nav-cta)::after {
+  content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
+  background: var(--gold); transition: width 0.25s ease;
+}
+.nav-links > li > a:not(.nav-cta):hover { color: var(--white); }
+.nav-links > li > a:not(.nav-cta):hover::after { width: 100%; }
+.nav-divider { width: 1px; height: 18px; background: rgba(201,168,76,0.2); }
+.nav-phone {
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--white); transition: color 0.2s;
+}
+.nav-phone:hover { color: var(--gold); }
+.nav-phone svg { color: var(--gold); flex-shrink: 0; }
+.nav-phone-text { display: flex; flex-direction: column; line-height: 1.2; }
+.nav-phone-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); }
+.nav-phone-number { font-size: 13px; font-weight: 500; }
+.nav-cta {
+  font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--black) !important; background: var(--gold); padding: 11px 26px;
+  border-radius: 2px; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(201,168,76,0.25); }
+
+/* HERO */
+.hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding: 10rem 4rem 4rem; overflow: hidden; }
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 70% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+.hero-content { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 2; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+.hero-eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+.hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 8vw, 110px); line-height: 0.9; letter-spacing: 2px; color: var(--white); margin-bottom: 2rem; }
+.hero h1 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); font-size: 0.85em; }
+.hero-desc { font-size: 17px; line-height: 1.75; color: var(--gray); font-weight: 300; margin-bottom: 3rem; max-width: 480px; }
+.hero-actions { display: flex; gap: 1.5rem; align-items: center; }
+.btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--black); font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; padding: 16px 36px; border-radius: 2px; text-decoration: none; transition: all 0.2s; border: none; cursor: none; }
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 20px 40px rgba(201,168,76,0.2); }
+.btn-primary svg { transition: transform 0.2s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+.btn-secondary { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); text-decoration: none; border-bottom: 1px solid rgba(154,148,136,0.3); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+.btn-secondary:hover { color: var(--white); border-color: var(--white); }
+.hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.15); border-radius: 4px; overflow: hidden; }
+.stat-box { background: var(--card-bg); padding: 2.5rem; position: relative; overflow: hidden; animation: fadeUp 0.8s ease both; }
+.stat-box:nth-child(1){animation-delay:.1s} .stat-box:nth-child(2){animation-delay:.2s} .stat-box:nth-child(3){animation-delay:.3s} .stat-box:nth-child(4){animation-delay:.4s}
+.stat-box::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.3s; }
+.stat-box:hover::after { opacity: 1; }
+.stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 1px; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
+.stat-label { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); }
+
+/* SECTION TAG */
+.section-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+.section-tag::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); }
+
+/* PROBLEM */
+.problem { padding: 8rem 4rem; max-width: 1200px; margin: 0 auto; }
+.problem h2 { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(36px, 4vw, 56px); line-height: 1.15; color: var(--white); margin-bottom: 4rem; max-width: 700px; }
+.pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.04); }
+.pain-item { background: var(--black); padding: 2.5rem; border-top: 2px solid transparent; transition: border-color 0.3s; }
+.pain-item:hover { border-top-color: var(--gold); }
+.pain-icon { font-size: 28px; margin-bottom: 1.25rem; }
+.pain-item h3 { font-size: 17px; font-weight: 500; color: var(--white); margin-bottom: 0.75rem; }
+.pain-item p { font-size: 14px; line-height: 1.7; color: var(--gray); }
+
+/* SERVICES */
+.services { padding: 8rem 4rem; background: var(--dark-gray); position: relative; overflow: hidden; }
+.services::before { content: 'SERVICIOS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', sans-serif; font-size: 20vw; color: rgba(255,255,255,0.015); white-space: nowrap; pointer-events: none; letter-spacing: 10px; }
+.services-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+.services h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 6vw, 80px); letter-spacing: 3px; margin-bottom: 0.5rem; }
+.services h2 span { color: var(--gold); }
+.services-sub { font-size: 16px; color: var(--gray); margin-bottom: 4rem; font-weight: 300; }
+.service-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: rgba(201,168,76,0.08); }
+.service-card { background: var(--dark-gray); padding: 3rem; position: relative; overflow: hidden; transition: background 0.3s; cursor: none; }
+.service-card:hover { background: #1f1f1c; }
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--gold); transition: height 0.4s ease; }
+.service-card:hover::before { height: 100%; }
+.service-number { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: rgba(201,168,76,0.12); line-height: 1; position: absolute; top: 1.5rem; right: 2rem; transition: color 0.3s; }
+.service-card:hover .service-number { color: rgba(201,168,76,0.22); }
+.service-icon { font-size: 32px; margin-bottom: 1.5rem; display: block; }
+.service-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--white); margin-bottom: 1rem; }
+.service-card p { font-size: 15px; line-height: 1.7; color: var(--gray); margin-bottom: 1.5rem; font-weight: 300; }
+.service-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.service-features li { font-size: 13px; color: var(--gray); display: flex; align-items: center; gap: 10px; }
+.service-features li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+/* PROCESS */
+.process { padding: 8rem 4rem; max-width: 1200px; margin: 0 auto; }
+.process h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 5vw, 72px); letter-spacing: 3px; margin-bottom: 4rem; text-align: center; }
+.process h2 span { color: var(--gold); }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; gap: 0; }
+.steps::before { content: ''; position: absolute; top: 40px; left: 12.5%; right: 12.5%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.step { padding: 0 1.5rem; text-align: center; position: relative; }
+.step-num { width: 80px; height: 80px; border: 1px solid rgba(201,168,76,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); background: var(--black); position: relative; z-index: 2; transition: background 0.3s, border-color 0.3s; }
+.step:hover .step-num { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+.step h3 { font-size: 16px; font-weight: 500; color: var(--white); margin-bottom: 0.75rem; }
+.step p { font-size: 13px; line-height: 1.65; color: var(--gray); }
+
+/* TESTIMONIALS */
+.proof { padding: 8rem 4rem; background: var(--dark-gray); }
+.proof-inner { max-width: 1200px; margin: 0 auto; }
+.proof h2 { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(36px, 4vw, 52px); text-align: center; margin-bottom: 4rem; color: var(--white); }
+.testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(201,168,76,0.08); }
+.testimonial { background: var(--dark-gray); padding: 2.5rem; transition: background 0.3s; }
+.testimonial:hover { background: #1f1f1c; }
+.stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 1.25rem; }
+.testimonial blockquote { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 17px; line-height: 1.6; color: var(--white); margin-bottom: 1.5rem; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.author-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 14px; color: var(--gold); }
+.author-info p:first-child { font-size: 14px; font-weight: 500; color: var(--white); }
+.author-info p:last-child { font-size: 12px; color: var(--gray); }
+
+/* PROJECTS SLIDER */
+.projects { padding: 8rem 0; overflow: hidden; background: var(--black); }
+.projects-header { max-width: 1200px; margin: 0 auto 3rem; padding: 0 4rem; }
+.projects-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 64px); letter-spacing: 2px; margin-bottom: 0.5rem; }
+.projects-header h2 span { color: var(--gold); }
+.projects-header p { font-size: 15px; color: var(--gray); font-weight: 300; }
+.projects-slider-wrap {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2rem;
+}
+.projects-slider-wrap::-webkit-scrollbar { display: none; }
+.projects-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  padding: 1.5rem 4rem 1rem;
+}
+.project-card {
+  flex: 0 0 300px;
+  background: var(--card-bg);
+  border: 1px solid rgba(201,168,76,0.1);
+  border-radius: 6px;
+  overflow: visible;
+  transition: border-color 0.3s, transform 0.4s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.4s;
+  scroll-snap-align: start;
+  cursor: pointer;
+  position: relative;
+}
+.project-card:hover { border-color: rgba(201,168,76,0.3); }
+.project-card.zoomed {
+  transform: scale(1.18);
+  border-color: rgba(201,168,76,0.7);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.6), 0 0 40px rgba(201,168,76,0.2);
+  z-index: 20;
+}
+.project-img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+  background: var(--dark-gray);
+  border-radius: 6px 6px 0 0;
+}
+.project-info { padding: 1.25rem 1.5rem; }
+.project-cat { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+.project-title { font-size: 15px; font-weight: 500; color: var(--white); }
+@keyframes projectsScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* RESULTS */
+.results { padding: 8rem 4rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.results-text .section-tag { margin-bottom: 1.5rem; }
+.results-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 5vw, 70px); letter-spacing: 2px; line-height: 0.95; margin-bottom: 2rem; }
+.results-text h2 span { color: var(--gold); }
+.results-text p { font-size: 16px; line-height: 1.75; color: var(--gray); margin-bottom: 2.5rem; font-weight: 300; }
+.results-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(201,168,76,0.1); }
+.metric { background: var(--black); padding: 2rem; text-align: center; }
+.metric-val { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
+.metric-desc { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); }
+
+/* PRICING */
+.pricing { padding: 8rem 4rem; max-width: 1200px; margin: 0 auto; }
+.pricing-header { text-align: center; margin-bottom: 4rem; }
+.pricing-header .section-tag { justify-content: center; }
+.pricing-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 64px); letter-spacing: 2px; margin-bottom: 0.75rem; }
+.pricing-header h2 span { color: var(--gold); }
+.pricing-header p { font-size: 15px; color: var(--gray); font-weight: 300; max-width: 480px; margin: 0 auto; }
+.pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: rgba(201,168,76,0.1); margin-bottom: 1.5rem; }
+.price-card { background: var(--card-bg); padding: 2.5rem 2rem; display: flex; flex-direction: column; transition: background 0.3s; }
+.price-card:hover { background: #1a1a17; }
+.price-card.other { align-items: flex-start; justify-content: center; }
+.price-icon { font-size: 26px; margin-bottom: 1.25rem; }
+.price-name { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-bottom: 0.75rem; }
+.price-value { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: var(--gold); line-height: 1; margin-bottom: 1.25rem; }
+.price-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 2rem; flex: 1; }
+.price-features li { font-size: 12.5px; color: var(--gray); display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; }
+.price-features li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
+.price-btn { display: block; text-align: center; background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--white); font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; padding: 12px; border-radius: 2px; text-decoration: none; cursor: none; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.price-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+.price-card.other p { font-size: 13px; color: var(--gray); line-height: 1.6; margin-bottom: 1.5rem; }
+.combo-banner { background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.02)); border: 1px solid rgba(201,168,76,0.3); border-radius: 6px; padding: 3rem; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; position: relative; overflow: hidden; }
+.combo-badge { position: absolute; top: 0; right: 0; background: var(--gold); color: var(--black); font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 16px; border-radius: 0 0 0 6px; }
+.combo-text .section-tag { margin-bottom: 1rem; }
+.combo-text h3 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 4vw, 48px); letter-spacing: 2px; margin-bottom: 0.75rem; }
+.combo-text h3 span { color: var(--gold); }
+.combo-text p { font-size: 14px; color: var(--gray); line-height: 1.65; max-width: 480px; margin-bottom: 0.5rem; }
+.combo-includes { font-size: 13px; color: var(--white); opacity: 0.8; }
+.combo-includes b { color: var(--gold); font-weight: 500; }
+.combo-price-box { text-align: center; }
+.combo-old-price { font-size: 16px; color: var(--gray); text-decoration: line-through; margin-bottom: 4px; }
+.combo-new-price { font-family: 'Bebas Neue', sans-serif; font-size: 60px; color: var(--gold); line-height: 1; }
+.combo-save { font-size: 12px; color: var(--white); background: rgba(201,168,76,0.15); display: inline-block; padding: 4px 12px; border-radius: 20px; margin: 0.75rem 0 1.25rem; }
+.combo-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: var(--black); font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; padding: 14px 28px; border-radius: 2px; text-decoration: none; cursor: none; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+.combo-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* CTA + FORM */
+.cta-section { padding: 8rem 4rem; background: var(--dark-gray); position: relative; overflow: hidden; text-align: center; }
+.cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); }
+.cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+.cta-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 7vw, 96px); letter-spacing: 3px; line-height: 0.95; margin-bottom: 1.5rem; }
+.cta-section h2 span { color: var(--gold); }
+.cta-section p { font-size: 17px; color: var(--gray); line-height: 1.7; margin-bottom: 3rem; font-weight: 300; }
+.contact-form { background: var(--black); border: 1px solid rgba(201,168,76,0.15); border-radius: 4px; padding: 3rem; text-align: left; max-width: 600px; margin: 0 auto; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { display: block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 2px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 13px 16px; outline: none; transition: border-color 0.2s; appearance: none; }
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(154,148,136,0.5); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: rgba(201,168,76,0.5); }
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-group select option { background: #111; }
+.form-submit { width: 100%; background: var(--gold); color: var(--black); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 16px; border: none; border-radius: 2px; cursor: none; transition: background 0.2s, transform 0.15s; margin-top: 0.5rem; }
+.form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+.form-submit:disabled { opacity: 0.6; transform: none; }
+.form-note { text-align: center; font-size: 12px; color: var(--gray); margin-top: 1rem; }
+.form-success { display: none; text-align: center; padding: 3rem; }
+.form-success h3 { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 2px; color: var(--gold); margin-bottom: 1rem; }
+.form-success p { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+/* FOOTER */
+footer { padding: 3rem 4rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--white); display: flex; align-items: center; gap: 8px; }
+.footer-logo::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 12px; color: rgba(154,148,136,0.5); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.animate { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.animate.visible { opacity: 1; transform: translateY(0); }
+
+/* MOBILE / TABLET */
+@media (max-width: 1024px) {
+  nav { padding: 1.1rem 2rem; }
+  .nav-phone-text { display: none; }
+  .nav-phone { padding: 6px; }
+  .nav-right { gap: 1.25rem; }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.25rem; }
+  .nav-links { display: none; }
+  .nav-divider { display: none; }
+  .nav-right { gap: 0.75rem; }
+  .nav-cta { padding: 9px 16px; font-size: 11px; }
+  .nav-logo { font-size: 18px; letter-spacing: 2.5px; }
+  .nav-phone-text { display: none; }
+
+  .hero { padding: 8rem 1.5rem 3rem; }
+  .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+  .hero h1 { font-size: 56px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+
+  .problem, .process, .results { padding: 4rem 1.5rem; }
+  .services, .proof, .cta-section { padding: 4rem 1.5rem; }
+  .projects { padding: 4rem 0; }
+  .projects-header { padding: 0 1.5rem; }
+  .pricing { padding: 4rem 1.5rem; }
+
+  .pain-grid { grid-template-columns: 1fr; }
+  .service-cards { grid-template-columns: 1fr; }
+  .testimonials { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .steps::before { display: none; }
+  .results { grid-template-columns: 1fr; gap: 3rem; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .combo-banner { grid-template-columns: 1fr; text-align: center; padding: 2rem 1.5rem; }
+
+  .form-row { grid-template-columns: 1fr; }
+  .contact-form { padding: 2rem 1.5rem; }
+  footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DENVASWEB</div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+    </ul>
+    <div class="nav-divider"></div>
+    <a href="tel:+19299944649" class="nav-phone">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <span class="nav-phone-text">
+        <span class="nav-phone-label">Llámanos</span>
+        <span class="nav-phone-number">+1 (929) 994-4649</span>
+      </span>
+    </a>
+    <a href="#contacto" class="nav-cta">Quiero empezar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow">Agencia de Marketing Digital</div>
+      <h1>Tu negocio merece <em>brillar</em> en redes</h1>
+      <p class="hero-desc">Creamos tu presencia digital completa y lanzamos campañas publicitarias que atraen clientes reales. Tú enfócate en tu negocio — nosotros llenamos tu agenda.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">
+          Quiero más clientes
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#servicios" class="btn-secondary">Ver servicios</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box"><div class="stat-number">3X</div><div class="stat-label">Más alcance orgánico</div></div>
+      <div class="stat-box"><div class="stat-number">48H</div><div class="stat-label">Lanzamiento rápido</div></div>
+      <div class="stat-box"><div class="stat-number">+80</div><div class="stat-label">Negocios escalados</div></div>
+      <div class="stat-box"><div class="stat-number">5★</div><div class="stat-label">Satisfacción clientes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-tag">El problema</div>
+  <h2 class="animate">¿Tu negocio es increíble, pero nadie lo sabe en internet?</h2>
+  <div class="pain-grid">
+    <div class="pain-item animate"><div class="pain-icon">😤</div><h3>Sin tiempo para redes sociales</h3><p>Tienes un negocio que atender. Publicar todos los días, crear contenido, responder comentarios... es un trabajo de tiempo completo que no puedes asumir solo.</p></div>
+    <div class="pain-item animate"><div class="pain-icon">💸</div><h3>Gastas en anuncios sin resultados</h3><p>Has probado Facebook Ads o Instagram Ads y el dinero se va sin traer clientes. Sin la estrategia correcta, es dinero tirado.</p></div>
+    <div class="pain-item animate"><div class="pain-icon">👻</div><h3>Invisible ante tu competencia</h3><p>Tus competidores llenan sus negocios gracias a internet mientras los clientes potenciales ni saben que existes. Cada día sin presencia digital es ventas perdidas.</p></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="services-inner">
+    <div class="section-tag">Lo que hacemos</div>
+    <h2 class="animate">Servicios que <span>generan ventas</span></h2>
+    <p class="services-sub animate">Todo lo que necesita tu negocio para dominar internet</p>
+    <div class="service-cards">
+      <div class="service-card animate">
+        <span class="service-number">01</span><span class="service-icon">📱</span>
+        <h3>Gestión de Redes Sociales</h3>
+        <p>Creamos y manejamos tu perfil profesional en Instagram, Facebook y TikTok. Contenido estratégico, estética coherente y publicación constante.</p>
+        <ul class="service-features"><li>Creación y optimización del perfil</li><li>Contenido gráfico y en video</li><li>Calendario editorial mensual</li><li>Gestión de comunidad y comentarios</li></ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">02</span><span class="service-icon">🎯</span>
+        <h3>Campañas Publicitarias</h3>
+        <p>Diseñamos y ejecutamos campañas en Meta Ads orientadas a resultados. Cada dólar invertido trabajando para atraer clientes reales.</p>
+        <ul class="service-features"><li>Estrategia y segmentación de audiencias</li><li>Creación de anuncios profesionales</li><li>Optimización continua de campañas</li></ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">03</span><span class="service-icon">✍️</span>
+        <h3>Identidad y Contenido de Marca</h3>
+        <p>Tu negocio necesita verse profesional para que los clientes confíen en él. Desarrollamos tu imagen visual y el mensaje que conecta.</p>
+        <ul class="service-features"><li>Plantillas de stories y posts</li><li>Copywriting persuasivo</li><li>Biografías y descripciones optimizadas</li></ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">04</span><span class="service-icon">🚀</span>
+        <h3>Paquete Lanzamiento Completo</h3>
+        <p>El paquete todo-en-uno para negocios que quieren resultados rápidos. Redes sociales + campaña activa en 48 horas.</p>
+        <ul class="service-features"><li>Todo lo del plan de Redes Sociales</li><li>Todo lo del plan de Publicidad</li><li>Landing page de captura</li><li>Consultoría estratégica 1 a 1</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="proceso">
+  <div class="section-tag" style="justify-content:center">Cómo trabajamos</div>
+  <h2 class="animate">Del <span>día 1</span> a los resultados</h2>
+  <div class="steps">
+    <div class="step animate"><div class="step-num">01</div><h3>Diagnóstico gratuito</h3><p>Analizamos tu negocio, competencia y audiencia objetivo para diseñar la estrategia correcta.</p></div>
+    <div class="step animate"><div class="step-num">02</div><h3>Creación y setup</h3><p>Configuramos y optimizamos todos tus perfiles. Creamos el contenido inicial y los anuncios.</p></div>
+    <div class="step animate"><div class="step-num">03</div><h3>Lanzamiento</h3><p>Activamos campañas, comenzamos a publicar y tu negocio empieza a generar visibilidad.</p></div>
+    <div class="step animate"><div class="step-num">04</div><h3>Optimización continua</h3><p>Medimos resultados cada semana y ajustamos la estrategia para maximizar tu inversión.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="proof">
+  <div class="proof-inner">
+    <h2 class="animate">Lo que dicen los negocios que ya confían en nosotros</h2>
+    <div class="testimonials">
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"En 3 semanas teníamos el doble de seguidores y los mensajes de clientes nuevos no paraban. Denvasweb transformó completamente nuestra presencia online."</blockquote>
+        <div class="testimonial-author"><div class="author-avatar">AR</div><div class="author-info"><p>Alberto Rodriguez</p><p>Home Painting Services, Miami</p></div></div>
+      </div>
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Gastaba dinero en anuncios sin resultados. Con Denvasweb, todas las semanas tengo trabajo en mi negocio de remodelación. La inversión se pagó sola el primer mes."</blockquote>
+        <div class="testimonial-author"><div class="author-avatar">CL</div><div class="author-info"><p>Carlos López</p><p>Kitchen Remodeling, Nueva York</p></div></div>
+      </div>
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"No sabía nada de redes sociales y me daba miedo. El equipo de Denvasweb lo manejó todo. Ahora mis clientes me encuentran en Google e Instagram todos los días."</blockquote>
+        <div class="testimonial-author"><div class="author-avatar">AP</div><div class="author-info"><p>Ana Pérez</p><p>House Cleaning, Houston</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS RECIENTES -->
+<section class="projects" id="proyectos">
+  <div class="projects-header">
+    <div class="section-tag">Trabajo real</div>
+    <h2>Proyectos <span>recientes</span></h2>
+    <p>Sitios web, redes sociales, Google Business y campañas publicitarias para nuestros clientes.</p>
+  </div>
+  <div class="projects-slider-wrap">
+    <div class="projects-track" id="projectsTrack"></div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="resultados">
+  <div class="results-text animate">
+    <div class="section-tag">Resultados reales</div>
+    <h2>Números que <span>hablan</span> solos</h2>
+    <p>No prometemos magia. Prometemos trabajo estratégico, consistente y orientado a resultados medibles. Cada cliente tiene acceso a reportes transparentes.</p>
+    <a href="#contacto" class="btn-primary" style="display:inline-flex">
+      Quiero estos resultados
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="results-metrics animate">
+    <div class="metric"><div class="metric-val">340%</div><div class="metric-desc">Aumento promedio en alcance</div></div>
+    <div class="metric"><div class="metric-val">2.8X</div><div class="metric-desc">Retorno sobre inversión en ads</div></div>
+    <div class="metric"><div class="metric-val">48H</div><div class="metric-desc">Tiempo de lanzamiento</div></div>
+    <div class="metric"><div class="metric-val">90%</div><div class="metric-desc">Clientes renuevan cada mes</div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="precios">
+  <div class="pricing-header">
+    <div class="section-tag">Inversión clara</div>
+    <h2>Precios <span>sin sorpresas</span></h2>
+    <p>Sabes exactamente qué pagas y qué recibes. Sin letra pequeña.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card animate">
+      <div class="price-icon">🌐</div>
+      <div class="price-name">Landing Page</div>
+      <div class="price-value">$549</div>
+      <ul class="price-features">
+        <li>Diseño profesional a medida</li>
+        <li>Optimizada para móvil</li>
+        <li>Formulario de contacto</li>
+        <li>Lista para publicar</li>
+      </ul>
+      <a href="https://wa.me/19299944649?text=Hola%20Denys!%20Me%20interesa%20el%20servicio%20de%20*Landing%20Page%20%24549*" class="price-btn">Quiero esta</a>
+    </div>
+    <div class="price-card animate">
+      <div class="price-icon">📱</div>
+      <div class="price-name">Redes Sociales</div>
+      <div class="price-value">$529</div>
+      <ul class="price-features">
+        <li>Creación de Fan Page</li>
+        <li>Cuenta de Instagram</li>
+        <li>Vinculación de cuentas</li>
+        <li>Cuenta de TikTok</li>
+        <li>Configuración Meta Business</li>
+        <li>Tutorial de uso</li>
+      </ul>
+      <a href="https://wa.me/19299944649?text=Hola%20Denys!%20Me%20interesa%20el%20servicio%20de%20*Redes%20Sociales%20%24529*" class="price-btn">Quiero esta</a>
+    </div>
+    <div class="price-card animate">
+      <div class="price-icon">🎯</div>
+      <div class="price-name">Campaña Publicitaria</div>
+      <div class="price-value">$149</div>
+      <ul class="price-features">
+        <li>Lanzamiento en Facebook Ads</li>
+        <li>2 anuncios (video o imagen)</li>
+        <li>Segmentación de audiencia</li>
+        <li>Configuración completa</li>
+      </ul>
+      <a href="https://wa.me/19299944649?text=Hola%20Denys!%20Me%20interesa%20el%20servicio%20de%20*Campa%C3%B1a%20Publicitaria%20%24149*" class="price-btn">Quiero esta</a>
+    </div>
+    <div class="price-card other animate">
+      <div class="price-icon">✨</div>
+      <div class="price-name">Otros Servicios</div>
+      <p>¿Buscas algo más específico? Tenemos más soluciones para tu negocio.</p>
+      <a href="servicios.html" class="price-btn" style="margin-top:auto">Ver todos</a>
+    </div>
+  </div>
+  <div class="combo-banner animate">
+    <div class="combo-badge">Ahorra $178</div>
+    <div class="combo-text">
+      <div class="section-tag">El más completo</div>
+      <h3>Paquete <span>Lanzamiento Total</span></h3>
+      <p>Landing Page + Redes Sociales + Campaña Publicitaria. Todo lo que necesitas para arrancar fuerte, en un solo paquete.</p>
+      <div class="combo-includes">Incluye <b>Landing</b> + <b>Redes Sociales</b> + <b>Campaña Ads</b></div>
+    </div>
+    <div class="combo-price-box">
+      <div class="combo-old-price">$1,227</div>
+      <div class="combo-new-price">$1,049</div>
+      <div class="combo-save">Ahorras 14%</div><br>
+      <a href="https://wa.me/19299944649?text=Hola%20Denys!%20Me%20interesa%20el%20*Paquete%20Lanzamiento%20Total%20%241%2C049*" class="combo-btn">
+        Quiero el combo
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + FORM -->
+<section class="cta-section" id="contacto">
+  <div class="cta-inner">
+    <div class="section-tag" style="justify-content:center">Empieza hoy</div>
+    <h2 class="animate">¿Listo para <span>llenar</span> tu negocio?</h2>
+    <p class="animate">Cuéntanos sobre tu negocio y te preparamos una estrategia personalizada gratis. Sin compromisos.</p>
+    <div class="contact-form animate" id="contactForm">
+      <div class="form-row">
+        <div class="form-group"><label>Tu nombre</label><input type="text" id="fname" placeholder="Ej: Carlos García"></div>
+        <div class="form-group"><label>WhatsApp / Teléfono</label><input type="tel" id="phone" placeholder="+1 (555) 000-0000"></div>
+      </div>
+      <div class="form-group"><label>¿Cuál es tu negocio?</label><input type="text" id="business" placeholder="Ej: Restaurante, salón de belleza, clínica..."></div>
+      <div class="form-group">
+        <label>¿Qué servicio te interesa?</label>
+        <select id="service">
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option>Landing Page — $549</option>
+          <option>Redes Sociales — $529</option>
+          <option>Campaña Publicitaria — $149</option>
+          <option>Paquete Lanzamiento Total — $1,049</option>
+          <option>No sé, quiero una recomendación</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Cuéntanos más (opcional)</label><textarea id="message" placeholder="¿Cuál es tu mayor reto hoy? ¿Cuánto tiempo llevas con el negocio?"></textarea></div>
+      <button class="form-submit" id="submitBtn" onclick="submitForm()">Quiero mi estrategia gratis →</button>
+      <p class="form-note">🔒 Tus datos están seguros. Te contactamos en menos de 24 horas.</p>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div style="font-size:48px;margin-bottom:1rem;">🎉</div>
+      <h3>¡Mensaje recibido!</h3>
+      <p>Gracias por confiar en Denvasweb. Te contactaremos en menos de 24 horas.<br><br>
+      Mientras tanto, <strong style="color:var(--gold)">revisa tu WhatsApp</strong> — te enviamos un mensaje con los próximos pasos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">DENVASWEB</div>
+  <ul class="footer-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#precios">Precios</a></li>
+    <li><a href="#resultados">Resultados</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="footer-copy">© <span id="year"></span> Denvasweb LLC. Todos los derechos reservados.</div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.left = mouseX - 5 + 'px';
+  cursor.style.top = mouseY - 5 + 'px';
+});
+function animateRing() {
+  ringX += (mouseX - ringX - 18) * 0.12;
+  ringY += (mouseY - ringY - 18) * 0.12;
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, input, select, textarea').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2)'; ring.style.transform = 'scale(1.5)'; ring.style.opacity = '0.3'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; ring.style.opacity = '0.5'; });
+});
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// ============================================
+// PROYECTOS RECIENTES
+// Para agregar un proyecto: copia una línea y pégala con tus datos
+// Para eliminar: borra esa línea
+// ============================================
+const proyectos = [
+  { img: "https://res.cloudinary.com/kat6qihq/image/upload/v1782970290/IMG_0017_fo05pf.jpg", titulo: "Proyecto Web 1", categoria: "Sitio Web" },
+  { img: "https://res.cloudinary.com/kat6qihq/image/upload/v1782970289/IMG_0018_y9uezd.jpg", titulo: "Proyecto Web 2", categoria: "Sitio Web" },
+  { img: "https://res.cloudinary.com/kat6qihq/image/upload/v1782970222/IMG_0019_eqx5yr.jpg", titulo: "Proyecto Web 3", categoria: "Sitio Web" },
+  { img: "https://res.cloudinary.com/kat6qihq/image/upload/v1782970194/IMG_0020_msrmu1.jpg", titulo: "Proyecto Web 4", categoria: "Sitio Web" },
+];
+
+function renderProyectos() {
+  const track = document.getElementById('projectsTrack');
+  track.innerHTML = proyectos.map((p, i) => `
+    <div class="project-card" onclick="zoomCard(this)">
+      <img class="project-img" src="${p.img}" alt="${p.titulo}" loading="lazy">
+      <div class="project-info">
+        <div class="project-cat">${p.categoria}</div>
+        <div class="project-title">${p.titulo}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Touch drag
+  const wrap = document.querySelector('.projects-slider-wrap');
+  let isDown = false, startX, scrollLeft;
+
+  wrap.addEventListener('mousedown', e => { isDown = true; wrap.style.cursor = 'grabbing'; startX = e.pageX - wrap.offsetLeft; scrollLeft = wrap.scrollLeft; });
+  wrap.addEventListener('mouseleave', () => { isDown = false; wrap.style.cursor = 'grab'; });
+  wrap.addEventListener('mouseup', () => { isDown = false; wrap.style.cursor = 'grab'; });
+  wrap.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - wrap.offsetLeft; wrap.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+
+  wrap.addEventListener('touchstart', e => { startX = e.touches[0].pageX; scrollLeft = wrap.scrollLeft; }, { passive: true });
+  wrap.addEventListener('touchmove', e => { const x = e.touches[0].pageX; wrap.scrollLeft = scrollLeft - (x - startX) * 1.2; }, { passive: true });
+
+  wrap.style.cursor = 'grab';
+}
+
+function zoomCard(card) {
+  const isZoomed = card.classList.contains('zoomed');
+  document.querySelectorAll('.project-card.zoomed').forEach(c => c.classList.remove('zoomed'));
+  if (!isZoomed) card.classList.add('zoomed');
+}
+
+renderProyectos();
+
+// Año automático
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Formulario — Formspree + WhatsApp
+async function submitForm() {
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const biz = document.getElementById('business').value.trim();
+  const svc = document.getElementById('service').value;
+  const msg = document.getElementById('message').value.trim();
+
+  if (!name || !phone || !biz || !svc) {
+    [{id:'fname',val:name},{id:'phone',val:phone},{id:'business',val:biz},{id:'service',val:svc}].forEach(f => {
+      if (!f.val) {
+        const el = document.getElementById(f.id);
+        el.style.borderColor = 'rgba(226,75,74,0.6)';
+        setTimeout(() => el.style.borderColor = '', 2000);
+      }
+    });
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  try {
+    await fetch('https://formspree.io/f/mqeoakpw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ nombre: name, telefono: phone, negocio: biz, servicio: svc, mensaje: msg || 'No especificado' })
+    });
+  } catch(e) { console.log('Formspree:', e); }
+
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+
+  const texto = `Hola Denys! 👋 Me llamo *${name}*.%0ATengo un negocio de *${biz}* y me interesa: *${svc}*.%0AMi teléfono es: ${phone}.${msg ? '%0A%0AAdicional: ' + msg : ''}`;
+  setTimeout(() => { window.open(`https://wa.me/19299944649?text=${texto}`, '_blank'); }, 1500);
+}
+</script>
+</body>
+</html>

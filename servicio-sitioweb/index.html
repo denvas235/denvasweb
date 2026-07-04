@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denvasweb | Creación de Sitios Web que Venden por Ti 24/7</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #080808;
+  --white: #f5f0e8;
+  --cream: #ede8dc;
+  --gold: #c9a84c;
+  --gold-light: #e8c96a;
+  --gray: #9a9488;
+  --dark-gray: #1a1a17;
+  --card-bg: #111110;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.08s ease;
+  opacity: 0.5;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 3px;
+  color: var(--white);
+}
+.nav-logo span { color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--black) !important;
+  background: var(--gold);
+  padding: 10px 24px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 8rem 4rem 4rem;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 30px; height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px, 8vw, 110px);
+  line-height: 0.9;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 2rem;
+}
+.hero h1 em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.85em;
+}
+
+.hero-desc {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--gray);
+  font-weight: 300;
+  margin-bottom: 3rem;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: none;
+}
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(201,168,76,0.2);
+}
+.btn-primary svg { transition: transform 0.2s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+
+.btn-secondary {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(154,148,136,0.3);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-secondary:hover { color: var(--white); border-color: var(--white); }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.stat-box {
+  background: var(--card-bg);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.8s ease both;
+}
+.stat-box:nth-child(1) { animation-delay: 0.1s; }
+.stat-box:nth-child(2) { animation-delay: 0.2s; }
+.stat-box:nth-child(3) { animation-delay: 0.3s; }
+.stat-box:nth-child(4) { animation-delay: 0.4s; }
+
+.stat-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.stat-box:hover::after { opacity: 1; }
+
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.problem {
+  padding: 8rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.section-tag::after {
+  content: '';
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.problem h2 {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 4rem;
+  max-width: 700px;
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.04);
+}
+
+.pain-item {
+  background: var(--black);
+  padding: 2.5rem;
+  border-top: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+.pain-item:hover { border-top-color: var(--gold); }
+
+.pain-icon { font-size: 28px; margin-bottom: 1.25rem; }
+.pain-item h3 { font-size: 17px; font-weight: 500; color: var(--white); margin-bottom: 0.75rem; }
+.pain-item p { font-size: 14px; line-height: 1.7; color: var(--gray); }
+
+/* GALLERY / AUTO SLIDER */
+.gallery {
+  padding: 8rem 4rem;
+  background: var(--dark-gray);
+  position: relative;
+  overflow: hidden;
+}
+.gallery::before {
+  content: 'PORTFOLIO';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18vw;
+  color: rgba(255,255,255,0.015);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 10px;
+}
+.gallery-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+.gallery h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 80px);
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+.gallery h2 span { color: var(--gold); }
+.gallery-sub { font-size: 16px; color: var(--gray); margin-bottom: 3.5rem; font-weight: 300; max-width: 600px; }
+
+.slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 620px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(201,168,76,0.15);
+  background: var(--card-bg);
+}
+.slider-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.65,0,0.35,1);
+}
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.slide-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 2.5rem;
+  background: linear-gradient(180deg, transparent, rgba(8,8,8,0.92) 80%);
+}
+.slide-caption p {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+.slide-caption h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 1px;
+  color: var(--white);
+}
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1.75rem;
+}
+.slider-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.25);
+  border: none;
+  cursor: none;
+  transition: background 0.25s, transform 0.25s;
+  padding: 0;
+}
+.slider-dot.active { background: var(--gold); transform: scale(1.25); }
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(8,8,8,0.55);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none;
+  z-index: 3;
+  transition: background 0.2s, border-color 0.2s;
+}
+.slider-arrow:hover { background: rgba(201,168,76,0.25); border-color: var(--gold); }
+.slider-arrow.prev { left: 1.25rem; }
+.slider-arrow.next { right: 1.25rem; }
+
+.services {
+  padding: 8rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.services::before {
+  content: 'INCLUYE';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20vw;
+  color: rgba(255,255,255,0.015);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 10px;
+}
+
+.services-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.services h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 80px);
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+.services h2 span { color: var(--gold); }
+
+.services-sub {
+  font-size: 16px;
+  color: var(--gray);
+  margin-bottom: 4rem;
+  font-weight: 300;
+}
+
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: rgba(201,168,76,0.08);
+}
+
+.service-card {
+  background: var(--dark-gray);
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+  cursor: none;
+}
+.service-card:hover { background: #1f1f1c; }
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--gold);
+  transition: height 0.4s ease;
+}
+.service-card:hover::before { height: 100%; }
+
+.service-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  color: rgba(201,168,76,0.12);
+  line-height: 1;
+  position: absolute;
+  top: 1.5rem; right: 2rem;
+  transition: color 0.3s;
+}
+.service-card:hover .service-number { color: rgba(201,168,76,0.22); }
+
+.service-icon { font-size: 32px; margin-bottom: 1.5rem; display: block; }
+
+.service-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.service-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.service-features li {
+  font-size: 13px;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.service-features li::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.process {
+  padding: 8rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.process h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 5vw, 72px);
+  letter-spacing: 3px;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+.process h2 span { color: var(--gold); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  gap: 0;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.step { padding: 0 1.5rem; text-align: center; position: relative; }
+
+.step-num {
+  width: 80px; height: 80px;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--gold);
+  background: var(--black);
+  position: relative;
+  z-index: 2;
+  transition: background 0.3s, border-color 0.3s;
+}
+.step:hover .step-num { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+.step h3 { font-size: 16px; font-weight: 500; color: var(--white); margin-bottom: 0.75rem; }
+.step p { font-size: 13px; line-height: 1.65; color: var(--gray); }
+
+.proof { padding: 8rem 4rem; background: var(--dark-gray); }
+.proof-inner { max-width: 1200px; margin: 0 auto; }
+
+.proof h2 {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(36px, 4vw, 52px);
+  text-align: center;
+  margin-bottom: 4rem;
+  color: var(--white);
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: rgba(201,168,76,0.08);
+}
+
+.testimonial { background: var(--dark-gray); padding: 2.5rem; transition: background 0.3s; }
+.testimonial:hover { background: #1f1f1c; }
+
+.stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 1.25rem; }
+
+.testimonial blockquote {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.author-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--gold);
+}
+.author-info p:first-child { font-size: 14px; font-weight: 500; color: var(--white); }
+.author-info p:last-child { font-size: 12px; color: var(--gray); }
+
+.results {
+  padding: 8rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.results-text .section-tag { margin-bottom: 1.5rem; }
+
+.results-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 5vw, 70px);
+  letter-spacing: 2px;
+  line-height: 0.95;
+  margin-bottom: 2rem;
+}
+.results-text h2 span { color: var(--gold); }
+
+.results-text p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--gray);
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.results-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(201,168,76,0.1);
+}
+.metric { background: var(--black); padding: 2rem; text-align: center; }
+.metric-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.metric-desc { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); }
+
+.guarantee {
+  padding: 6rem 4rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+.guarantee-box {
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 6px;
+  padding: 3.5rem 3rem;
+  background: var(--card-bg);
+}
+.guarantee-icon { font-size: 40px; margin-bottom: 1.25rem; }
+.guarantee h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.guarantee p { font-size: 15px; line-height: 1.75; color: var(--gray); max-width: 620px; margin: 0 auto; font-weight: 300; }
+
+.cta-section {
+  padding: 8rem 4rem;
+  background: var(--dark-gray);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+}
+
+.cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+
+.cta-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 7vw, 96px);
+  letter-spacing: 3px;
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+}
+.cta-section h2 span { color: var(--gold); }
+
+.cta-section p {
+  font-size: 17px;
+  color: var(--gray);
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.contact-form {
+  background: var(--black);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 4px;
+  padding: 3rem;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1.25rem; }
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: rgba(154,148,136,0.5); }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: rgba(201,168,76,0.5); }
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-group select option { background: #111; }
+
+.form-submit {
+  width: 100%;
+  background: var(--gold);
+  color: var(--black);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px;
+  border: none;
+  border-radius: 2px;
+  cursor: none;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 0.5rem;
+}
+.form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+.form-submit:disabled { opacity: 0.6; transform: none; }
+
+.form-note { text-align: center; font-size: 12px; color: var(--gray); margin-top: 1rem; }
+
+.form-success { display: none; text-align: center; padding: 3rem; }
+.form-success h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.form-success p { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+footer {
+  padding: 3rem 4rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; }
+.footer-logo span { color: var(--gold); }
+
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 12px; color: rgba(154,148,136,0.5); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav { padding: 1.25rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+  .hero h1 { font-size: 56px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .problem, .process, .results, .guarantee { padding: 4rem 1.5rem; }
+  .services, .proof, .cta-section, .gallery { padding: 4rem 1.5rem; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .service-cards { grid-template-columns: 1fr; }
+  .testimonials { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .steps::before { display: none; }
+  .results { grid-template-columns: 1fr; gap: 3rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-form { padding: 2rem 1.5rem; }
+  .slider { aspect-ratio: 4/5; max-height: 520px; }
+  .slider-arrow { width: 36px; height: 36px; }
+  footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DENVASWEB<span> | Sitios Web</span></div>
+  <ul class="nav-links">
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#incluye">Qué incluye</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto" class="nav-cta">Quiero mi sitio web</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow">Diseño & Desarrollo Web Profesional</div>
+      <h1>Tu negocio merece un sitio web que <em>venda</em> por ti</h1>
+      <p class="hero-desc">Creamos un sitio web profesional, rápido y diseñado para convertir visitas en clientes reales — disponible 24/7, incluso cuando tú estás durmiendo. Sin complicaciones técnicas, sin letra pequeña.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">
+          Quiero mi sitio web
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#galeria" class="btn-secondary">Ver diseños</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-number">48H</div>
+        <div class="stat-label">Primera vista previa lista</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Responsive y optimizado</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">+50</div>
+        <div class="stat-label">Sitios web entregados</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">5★</div>
+        <div class="stat-label">Satisfacción de clientes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-tag">El problema</div>
+  <h2 class="animate">¿Cuántos clientes has perdido porque tu negocio no aparece en internet?</h2>
+  <div class="pain-grid">
+    <div class="pain-item animate">
+      <div class="pain-icon">🔍</div>
+      <h3>No apareces cuando te buscan en Google</h3>
+      <p>Mientras tu competencia sale primero en los resultados de búsqueda, tu negocio sigue siendo invisible para quienes ya están buscando lo que ofreces, hoy mismo.</p>
+    </div>
+    <div class="pain-item animate">
+      <div class="pain-icon">📵</div>
+      <h3>Tu sitio actual ahuyenta clientes</h3>
+      <p>Lento, anticuado o que no se ve bien en el celular. El 80% de tus visitantes navegan desde su teléfono y se van en segundos si la experiencia es mala.</p>
+    </div>
+    <div class="pain-item animate">
+      <div class="pain-icon">🤝</div>
+      <h3>Pierdes credibilidad frente al cliente</h3>
+      <p>Un cliente que te encuentra solo en redes sociales duda más en confiar en ti. Un sitio web profesional es la diferencia entre "parecer serio" y serlo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY / SLIDER -->
+<section class="gallery" id="galeria">
+  <div class="gallery-inner">
+    <div class="section-tag">Nuestro trabajo</div>
+    <h2 class="animate">Sitios web que <span>impresionan</span> desde el primer clic</h2>
+    <p class="gallery-sub animate">Cada proyecto se diseña a medida según tu industria, tu marca y tus clientes. Esto es una muestra de lo que podemos crear para ti.</p>
+    <div class="slider animate" id="slider">
+      <button class="slider-arrow prev" id="prevBtn" aria-label="Anterior">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="slider-arrow next" id="nextBtn" aria-label="Siguiente">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="slider-track" id="sliderTrack">
+        <div class="slide">
+          <img src="images/portfolio-01.webp" alt="Sitio web para negocio de servicios para el hogar">
+          <div class="slide-caption">
+            <p>Servicios para el hogar</p>
+            <h4>Landing page con formulario de cotización</h4>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="images/portfolio-02.webp" alt="Sitio web para restaurante o negocio de comida">
+          <div class="slide-caption">
+            <p>Restaurantes</p>
+            <h4>Menú digital y reservas online</h4>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="images/portfolio-03.webp" alt="Sitio web para clínica o negocio de salud y belleza">
+          <div class="slide-caption">
+            <p>Salud y belleza</p>
+            <h4>Agenda de citas integrada</h4>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="images/portfolio-04.webp" alt="Tienda online de e-commerce">
+          <div class="slide-caption">
+            <p>E-commerce</p>
+            <h4>Tienda online con pagos integrados</h4>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="images/portfolio-05.webp" alt="Sitio web corporativo profesional">
+          <div class="slide-caption">
+            <p>Servicios profesionales</p>
+            <h4>Sitio corporativo con identidad de marca</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section class="services" id="incluye">
+  <div class="services-inner">
+    <div class="section-tag">Lo que incluye</div>
+    <h2 class="animate">Todo lo que tu sitio web <span>necesita</span></h2>
+    <p class="services-sub animate">Sin sorpresas, sin costos ocultos. Tu sitio web profesional, listo para vender.</p>
+    <div class="service-cards">
+      <div class="service-card animate">
+        <span class="service-number">01</span>
+        <span class="service-icon">🎨</span>
+        <h3>Diseño a tu Medida</h3>
+        <p>Nada de plantillas genéricas. Diseñamos un sitio único, alineado con tu marca, tus colores y la imagen que quieres proyectar ante tus clientes.</p>
+        <ul class="service-features">
+          <li>Diseño 100% personalizado</li>
+          <li>Identidad visual coherente</li>
+          <li>Hasta 2 rondas de ajustes incluidas</li>
+        </ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">02</span>
+        <span class="service-icon">📱</span>
+        <h3>100% Responsive</h3>
+        <p>Tu sitio se ve perfecto en celular, tablet y computadora. La mayoría de tus clientes te encontrarán desde el teléfono — y ahí es donde brillarás más.</p>
+        <ul class="service-features">
+          <li>Adaptado a todas las pantallas</li>
+          <li>Carga rápida en datos móviles</li>
+          <li>Botón flotante de WhatsApp</li>
+        </ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">03</span>
+        <span class="service-icon">🔍</span>
+        <h3>Optimizado para Google (SEO)</h3>
+        <p>Configuramos tu sitio para que Google entienda de qué trata tu negocio y empiece a mostrarte a clientes que están buscando justo lo que ofreces.</p>
+        <ul class="service-features">
+          <li>SEO básico on-page incluido</li>
+          <li>Velocidad de carga optimizada</li>
+          <li>Estructura amigable para buscadores</li>
+        </ul>
+      </div>
+      <div class="service-card animate">
+        <span class="service-number">04</span>
+        <span class="service-icon">💬</span>
+        <h3>Formulario y Contacto Directo</h3>
+        <p>Cada visitante tiene una forma clara y directa de convertirse en cliente: formulario de contacto, botón de WhatsApp y tus redes sociales, todo conectado.</p>
+        <ul class="service-features">
+          <li>Formulario de contacto funcional</li>
+          <li>Integración directa con WhatsApp</li>
+          <li>Notificaciones por correo en tiempo real</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="proceso">
+  <div class="section-tag" style="justify-content:center">Cómo trabajamos</div>
+  <h2 class="animate">De la idea a tu sitio <span>publicado</span></h2>
+  <div class="steps">
+    <div class="step animate">
+      <div class="step-num">01</div>
+      <h3>Brief inicial</h3>
+      <p>Nos cuentas sobre tu negocio, tu estilo y tus objetivos a través de un formulario simple de 5 minutos.</p>
+    </div>
+    <div class="step animate">
+      <div class="step-num">02</div>
+      <h3>Diseño y desarrollo</h3>
+      <p>Diseñamos y construimos tu sitio web a medida, optimizado para velocidad y conversión.</p>
+    </div>
+    <div class="step animate">
+      <div class="step-num">03</div>
+      <h3>Revisión contigo</h3>
+      <p>Te mostramos la vista previa, ajustamos los detalles que necesites y aprobamos juntos el resultado final.</p>
+    </div>
+    <div class="step animate">
+      <div class="step-num">04</div>
+      <h3>Publicación</h3>
+      <p>Tu sitio queda en línea, listo para recibir visitas y convertir clientes desde el primer día.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="proof">
+  <div class="proof-inner">
+    <h2 class="animate">Lo que dicen los negocios que ya tienen su sitio web</h2>
+    <div class="testimonials">
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Antes solo tenía Instagram. Ahora cuando le mando mi página a un cliente nuevo, la confianza cambia totalmente. Se nota que somos un negocio serio."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">MG</div>
+          <div class="author-info">
+            <p>Mónica Gutiérrez</p>
+            <p>Salón de Belleza, Orlando</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"En menos de una semana ya tenía mi sitio funcionando y recibiendo mensajes por WhatsApp directo desde la página. El proceso fue rapidísimo y sin estrés."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">RF</div>
+          <div class="author-info">
+            <p>Roberto Fernández</p>
+            <p>Construcción y Remodelación, Dallas</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial animate">
+        <div class="stars">★★★★★</div>
+        <blockquote>"No sabía nada de tecnología y me daba miedo el proceso. Denvasweb se encargó de todo, me explicaron cada paso y el resultado superó lo que imaginaba."</blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">LT</div>
+          <div class="author-info">
+            <p>Laura Torres</p>
+            <p>Clínica Dental, Houston</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="resultados">
+  <div class="results-text animate">
+    <div class="section-tag">Resultados reales</div>
+    <h2>Un sitio web que <span>trabaja</span> para ti</h2>
+    <p>No vendemos solo una página bonita. Construimos una herramienta de ventas que recibe visitas, genera confianza y convierte interesados en clientes, todos los días del año.</p>
+    <a href="#contacto" class="btn-primary" style="display:inline-flex">
+      Quiero mi sitio web
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+  <div class="results-metrics animate">
+    <div class="metric">
+      <div class="metric-val">24/7</div>
+      <div class="metric-desc">Tu negocio siempre visible</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">3-7D</div>
+      <div class="metric-desc">Tiempo promedio de entrega</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">100%</div>
+      <div class="metric-desc">Optimizado para móviles</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">+50</div>
+      <div class="metric-desc">Negocios ya confían en nosotros</div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee">
+  <div class="guarantee-box animate">
+    <div class="guarantee-icon">🛡️</div>
+    <h3>Garantía de satisfacción total</h3>
+    <p>Trabajamos contigo hasta que el diseño te encante. Incluimos rondas de ajustes en el proceso y no publicamos nada sin tu aprobación final. Si algo no te convence, lo corregimos — tu sitio web debe representarte exactamente como tú quieres.</p>
+  </div>
+</section>
+
+<!-- CTA + FORM -->
+<section class="cta-section" id="contacto">
+  <div class="cta-inner">
+    <div class="section-tag" style="justify-content:center">Empieza hoy</div>
+    <h2 class="animate">Tu sitio web <span>te está esperando</span></h2>
+    <p class="animate">Cuéntanos sobre tu negocio y te preparamos una propuesta personalizada gratis, sin compromisos. Empieza a recibir clientes desde tu propio sitio web.</p>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-form animate" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tu nombre</label>
+          <input type="text" id="fname" placeholder="Ej: Carlos García">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp / Teléfono</label>
+          <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>¿Cuál es tu negocio?</label>
+        <input type="text" id="business" placeholder="Ej: Restaurante, salón de belleza, clínica...">
+      </div>
+      <div class="form-group">
+        <label>¿Qué tipo de sitio web necesitas?</label>
+        <select id="service">
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option>Sitio Web Básico (1 página)</option>
+          <option>Sitio Web Completo (varias secciones)</option>
+          <option>Tienda Online / E-commerce</option>
+          <option>Rediseño de mi sitio actual</option>
+          <option>No sé, quiero una recomendación</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Cuéntanos más (opcional)</label>
+        <textarea id="message" placeholder="¿Ya tienes un sitio web? ¿Qué te gustaría que tuviera el nuevo?"></textarea>
+      </div>
+      <button class="form-submit" id="submitBtn" onclick="submitForm()">Quiero mi propuesta gratis →</button>
+      <p class="form-note">🔒 Tus datos están seguros. Te contactamos en menos de 24 horas.</p>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="form-success" id="formSuccess">
+      <div style="font-size:48px;margin-bottom:1rem;">🎉</div>
+      <h3>¡Mensaje recibido!</h3>
+      <p>Gracias por confiar en Denvasweb. Te contactaremos en menos de 24 horas para hablar de tu sitio web.<br><br>
+      Mientras tanto, <strong style="color:var(--gold)">revisa tu WhatsApp</strong> — te enviamos un mensaje con los primeros pasos.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">DENVASWEB<span> | Sitios Web</span></div>
+  <ul class="footer-links">
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#incluye">Qué incluye</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="footer-copy">© <span id="year"></span> Denvasweb LLC. Todos los derechos reservados.</div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX - 5 + 'px';
+  cursor.style.top = mouseY - 5 + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX - 18) * 0.12;
+  ringY += (mouseY - ringY - 18) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, input, select, textarea').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2)'; ring.style.transform = 'scale(1.5)'; ring.style.opacity = '0.3'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; ring.style.opacity = '0.5'; });
+});
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// Auto year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// GALLERY SLIDER (auto-play)
+const track = document.getElementById('sliderTrack');
+const dotsWrap = document.getElementById('sliderDots');
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let currentSlide = 0;
+let sliderInterval;
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.classList.add('slider-dot');
+  if (i === 0) dot.classList.add('active');
+  dot.addEventListener('click', () => goToSlide(i));
+  dotsWrap.appendChild(dot);
+});
+const dots = document.querySelectorAll('.slider-dot');
+
+function goToSlide(index) {
+  currentSlide = (index + totalSlides) % totalSlides;
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  dots.forEach(d => d.classList.remove('active'));
+  dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() { goToSlide(currentSlide + 1); }
+function prevSlide() { goToSlide(currentSlide - 1); }
+
+function startAutoSlide() {
+  sliderInterval = setInterval(nextSlide, 4500);
+}
+function stopAutoSlide() {
+  clearInterval(sliderInterval);
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => { nextSlide(); stopAutoSlide(); startAutoSlide(); });
+document.getElementById('prevBtn').addEventListener('click', () => { prevSlide(); stopAutoSlide(); startAutoSlide(); });
+
+const sliderEl = document.getElementById('slider');
+sliderEl.addEventListener('mouseenter', stopAutoSlide);
+sliderEl.addEventListener('mouseleave', startAutoSlide);
+
+startAutoSlide();
+
+// Form submit — Formspree + WhatsApp
+async function submitForm() {
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const biz = document.getElementById('business').value.trim();
+  const svc = document.getElementById('service').value;
+  const msg = document.getElementById('message').value.trim();
+
+  // Validacion
+  if (!name || !phone || !biz || !svc) {
+    [{id:'fname',val:name},{id:'phone',val:phone},
+     {id:'business',val:biz},{id:'service',val:svc}].forEach(f => {
+      if (!f.val) {
+        const el = document.getElementById(f.id);
+        el.style.borderColor = 'rgba(226,75,74,0.6)';
+        setTimeout(() => el.style.borderColor = '', 2000);
+      }
+    });
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  // Enviar a Formspree
+  try {
+    await fetch('https://formspree.io/f/mqeoakpw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        nombre: name,
+        telefono: phone,
+        negocio: biz,
+        servicio: svc,
+        mensaje: msg || 'No especificado'
+      })
+    });
+  } catch(e) {
+    console.log('Formspree error:', e);
+  }
+
+  // Mostrar pantalla de exito
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+
+  // Abrir WhatsApp 1.5 segundos despues
+  const texto = `Hola Denys! 👋 Me llamo *${name}*.%0ATengo un negocio de *${biz}* y quiero un sitio web: *${svc}*.%0AMi teléfono es: ${phone}.${msg ? '%0A%0AAdicional: ' + msg : ''}`;
+  setTimeout(() => {
+    window.open(`https://wa.me/19299944649?text=${texto}`, '_blank');
+  }, 1500);
+}
+</script>
+</body>
+</html>
