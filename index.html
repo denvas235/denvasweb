@@ -30,7 +30,12 @@ nav {
   font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 4px;
   color: var(--white); display: flex; align-items: center; gap: 10px;
 }
-.nav-logo::before { content: ''; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+.nav-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
 .nav-right { display: flex; align-items: center; gap: 1.75rem; }
 .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
 .nav-links li { position: relative; }
@@ -309,6 +314,7 @@ footer { padding: 3rem 4rem; border-top: 1px solid rgba(255,255,255,0.05); displ
   .nav-right { gap: 0.75rem; }
   .nav-cta { padding: 9px 16px; font-size: 11px; }
   .nav-logo { font-size: 18px; letter-spacing: 2.5px; }
+  .nav-logo-img { height: 28px; }
   .nav-phone-text { display: none; }
 
   .hero { padding: 8rem 1.5rem 3rem; }
@@ -345,7 +351,10 @@ footer { padding: 3rem 4rem; border-top: 1px solid rgba(255,255,255,0.05); displ
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">DENVASWEB</div>
+  <div class="nav-logo">
+    <img src="https://res.cloudinary.com/kat6qihq/image/upload/v1783545917/Logotipo_Denvasweb_2026_svg_v9h1tg.svg" alt="Denvasweb Logo" class="nav-logo-img">
+    DENVASWEB
+  </div>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#servicios">Servicios</a></li>
