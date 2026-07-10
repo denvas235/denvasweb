@@ -687,7 +687,9 @@ const proyectos = [
 
 function renderProyectos() {
   const track = document.getElementById('projectsTrack');
-  track.innerHTML = proyectos.map((p, i) => `
+  const wrap = document.querySelector('.projects-slider-wrap');
+
+  const setHTML = proyectos.map(p => `
     <div class="project-card" onclick="zoomCard(this)">
       <img class="project-img" src="${p.img}" alt="${p.titulo}" loading="lazy">
       <div class="project-info">
@@ -696,20 +698,63 @@ function renderProyectos() {
       </div>
     </div>
   `).join('');
+  track.innerHTML = setHTML + setHTML + setHTML;
 
-  // Touch drag
-  const wrap = document.querySelector('.projects-slider-wrap');
   let isDown = false, startX, scrollLeft;
-
   wrap.addEventListener('mousedown', e => { isDown = true; wrap.style.cursor = 'grabbing'; startX = e.pageX - wrap.offsetLeft; scrollLeft = wrap.scrollLeft; });
   wrap.addEventListener('mouseleave', () => { isDown = false; wrap.style.cursor = 'grab'; });
   wrap.addEventListener('mouseup', () => { isDown = false; wrap.style.cursor = 'grab'; });
   wrap.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - wrap.offsetLeft; wrap.scrollLeft = scrollLeft - (x - startX) * 1.5; });
-
-  wrap.addEventListener('touchstart', e => { startX = e.touches[0].pageX; scrollLeft = wrap.scrollLeft; }, { passive: true });
-  wrap.addEventListener('touchmove', e => { const x = e.touches[0].pageX; wrap.scrollLeft = scrollLeft - (x - startX) * 1.2; }, { passive: true });
-
   wrap.style.cursor = 'grab';
+
+  const total = proyectos.length;
+  let oneSetWidth = 0;
+  let ticking = false;
+  let userInteracted = false;
+
+  function measure(forcePosition) {
+    const cards = track.children;
+    if (cards.length < total * 2) return;
+    oneSetWidth = cards[total].offsetLeft - cards[0].offsetLeft;
+    if (forcePosition && !userInteracted && oneSetWidth > 0) {
+      wrap.scrollLeft = cards[total].offsetLeft;
+    }
+  }
+
+  function handleLoop() {
+    if (!oneSetWidth) return;
+    const start = oneSetWidth;
+    if (wrap.scrollLeft < start - oneSetWidth * 0.85) {
+      wrap.scrollLeft += oneSetWidth;
+    } else if (wrap.scrollLeft > start + oneSetWidth * 0.85) {
+      wrap.scrollLeft -= oneSetWidth;
+    }
+  }
+
+  wrap.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => { handleLoop(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  wrap.addEventListener('pointerdown', () => { userInteracted = true; }, { once: true });
+  wrap.addEventListener('wheel', () => { userInteracted = true; }, { once: true, passive: true });
+
+  window.addEventListener('resize', () => measure(false));
+
+  requestAnimationFrame(() => requestAnimationFrame(() => measure(true)));
+  window.addEventListener('load', () => measure(true));
+  setTimeout(() => measure(true), 500);
+
+  setTimeout(() => {
+    if (userInteracted) return;
+    wrap.scrollBy({ left: 60, behavior: 'smooth' });
+    setTimeout(() => {
+      if (userInteracted) return;
+      wrap.scrollBy({ left: -60, behavior: 'smooth' });
+    }, 500);
+  }, 900);
 }
 
 function zoomCard(card) {
