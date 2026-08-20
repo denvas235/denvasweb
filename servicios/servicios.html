@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servicios — Denvasweb</title>
+<meta name="description" content="Sitios web, menús digitales QR y marketing digital para negocios locales. Diseño premium, resultados medibles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #241E15;
+    --section-tint: #F2E4C0;
+    --gold-pale: #EBE3B5;
+    --gold: #A9822F;
+    --gold-light: #C7A050;
+    --gold-deep: #B69567;
+    --off-white: #F9F4E7;
+    --white: #FFFFFF;
+    --text: #5B5347;
+    --text-light: #9C9385;
+    --border: #E4D8B8;
+    --device: #2B2620;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--off-white);
+    color:var(--text);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  section{ padding: clamp(64px, 9vw, 120px) 24px; }
+  .wrap{ max-width:1180px; margin:0 auto; }
+
+  h1,h2,h3,h4{
+    color:var(--ink);
+    font-weight:800;
+    letter-spacing:-0.02em;
+    line-height:1.1;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px; height:2px;
+    background:var(--gold-light);
+    display:inline-block;
+  }
+  .section-head{ max-width:640px; margin-bottom:48px; }
+  .section-head p{ font-size:17px; color:var(--text); margin-top:14px; }
+  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 28px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    border:none;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), color .35s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--gold-light), var(--gold-deep));
+    color:#fff;
+    box-shadow:0 8px 24px -8px rgba(169,130,47,0.55);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 12px 28px -8px rgba(169,130,47,0.65); }
+  .btn-ghost{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+  .btn-sm{ padding:10px 20px; font-size:13px; }
+
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(249,244,231,0.82);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-wrap{
+    max-width:1180px; margin:0 auto;
+    padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-weight:800; font-size:18px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--ink);
+  }
+  .logo-mark{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(135deg, var(--gold-light), var(--gold-deep));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:15px; font-weight:800;
+  }
+  nav.links{ display:flex; align-items:center; gap:36px; }
+  nav.links a{
+    font-size:14px; font-weight:600; color:var(--text);
+    transition:color .3s var(--ease);
+  }
+  nav.links a:hover{ color:var(--gold); }
+  .nav-cta{ display:flex; align-items:center; gap:14px; }
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; }
+  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+    content:""; display:block; width:22px; height:2px; background:var(--ink);
+    position:relative; transition:.3s;
+  }
+  .nav-toggle span::before{ position:absolute; top:-7px; }
+  .nav-toggle span::after{ position:absolute; top:7px; }
+
+  /* Hero */
+  .hero{ padding-top:clamp(56px, 8vw, 96px); }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr;
+    gap:56px; align-items:center;
+  }
+  .hero h1{ font-size:clamp(36px, 5vw, 58px); }
+  .hero .accent{
+    background:linear-gradient(135deg, var(--gold-light), var(--gold-deep));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{ font-size:18px; margin:22px 0 32px; max-width:480px; }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-visual{ position:relative; }
+  .device-laptop{
+    background:var(--device);
+    border-radius:16px 16px 4px 4px;
+    padding:12px 12px 34px;
+    box-shadow:0 30px 60px -20px rgba(43,38,32,0.35);
+  }
+  .device-laptop::after{
+    content:""; position:absolute; left:50%; bottom:-8px; transform:translateX(-50%);
+    width:70%; height:8px; background:#1c1812; border-radius:0 0 6px 6px;
+  }
+  .device-screen{
+    background:var(--white);
+    border-radius:8px;
+    aspect-ratio:16/10;
+    overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .device-screen .fake-bar{
+    height:26px; background:var(--section-tint);
+    display:flex; align-items:center; gap:6px; padding:0 12px;
+  }
+  .fake-dot{ width:8px; height:8px; border-radius:50%; background:var(--border); }
+  .device-screen .fake-body{
+    flex:1; padding:20px;
+    background:
+      linear-gradient(var(--gold-pale), transparent 40%),
+      var(--off-white);
+  }
+  .fake-line{ height:10px; border-radius:4px; background:var(--border); margin-bottom:10px; }
+  .fake-line.short{ width:40%; }
+  .fake-line.gold{ background:linear-gradient(90deg, var(--gold-light), var(--gold-deep)); width:30%; height:14px; margin-top:18px; }
+  .device-phone{
+    position:absolute; right:-6%; bottom:-12%; width:120px;
+    background:var(--device);
+    border-radius:20px;
+    padding:8px;
+    box-shadow:0 24px 48px -18px rgba(43,38,32,0.4);
+  }
+  .device-phone .screen{
+    background:var(--white); border-radius:14px; aspect-ratio:9/18; overflow:hidden;
+  }
+  .device-phone .screen .top{ height:20%; background:linear-gradient(135deg, var(--gold-light), var(--gold-deep)); }
+  .device-phone .screen .body{ padding:8px; }
+  .device-phone .fake-line{ height:6px; }
+
+  /* Reveal */
+  [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* Servicios */
+  .tint{ background:var(--section-tint); }
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+  }
+  .service-card{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  }
+  .service-card:hover{ transform:translateY(-6px); box-shadow:0 20px 40px -20px rgba(36,30,21,0.18); border-color:var(--gold-light); }
+  .service-icon{
+    width:48px; height:48px; border-radius:12px;
+    background:var(--gold-pale);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px;
+  }
+  .service-icon svg{ width:24px; height:24px; stroke:var(--gold); }
+  .service-card h3{ font-size:20px; margin-bottom:10px; }
+  .service-card p{ font-size:15px; margin-bottom:18px; }
+  .service-list{ display:flex; flex-direction:column; gap:8px; margin-bottom:22px; }
+  .service-list li{ font-size:14px; display:flex; gap:8px; align-items:flex-start; }
+  .service-list li::before{ content:"—"; color:var(--gold); flex-shrink:0; }
+  .service-price{ font-size:13px; font-weight:700; color:var(--gold); }
+
+  /* Feature / case study */
+  .feature{
+    display:grid; grid-template-columns:0.9fr 1.1fr;
+    gap:48px; align-items:center;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:clamp(28px, 4vw, 52px);
+  }
+  .feature-stats{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .stat-box{
+    background:var(--off-white);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+  }
+  .stat-box .num{ font-size:30px; font-weight:800; color:var(--ink); letter-spacing:-0.02em; }
+  .stat-box .label{ font-size:13px; color:var(--text-light); margin-top:4px; }
+  .feature-copy .tag{
+    display:inline-block; font-size:12px; font-weight:700; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--gold); background:var(--gold-pale);
+    padding:6px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  .feature-copy h3{ font-size:26px; margin-bottom:14px; }
+  .feature-copy p{ font-size:15px; margin-bottom:12px; }
+
+  /* Portfolio */
+  .portfolio-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+  }
+  .portfolio-item{
+    position:relative; border-radius:var(--radius); overflow:hidden;
+    border:1px solid var(--border);
+    cursor:pointer;
+    background:var(--white);
+  }
+  .portfolio-thumb{
+    aspect-ratio:4/3; width:100%;
+    background:
+      linear-gradient(160deg, var(--gold-pale) 0%, var(--off-white) 60%);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .portfolio-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .portfolio-thumb .ph-label{ font-size:13px; color:var(--text-light); font-weight:600; }
+  .portfolio-overlay{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 40%, rgba(36,30,21,0.72));
+    display:flex; align-items:flex-end; padding:18px;
+    opacity:0; transition:opacity .35s var(--ease);
+  }
+  .portfolio-item:hover .portfolio-overlay{ opacity:1; }
+  .portfolio-overlay .info h4{ color:#fff; font-size:16px; }
+  .portfolio-overlay .info span{ color:var(--gold-pale); font-size:12px; }
+  .portfolio-meta{ padding:14px 16px; }
+  .portfolio-meta h4{ font-size:15px; }
+  .portfolio-meta span{ font-size:13px; color:var(--text-light); }
+
+  /* Modal / carousel */
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(36,30,21,0.6);
+    display:none; align-items:center; justify-content:center;
+    z-index:1000; padding:24px;
+    backdrop-filter:blur(4px);
+  }
+  .modal-backdrop.open{ display:flex; }
+  .modal-box{
+    background:var(--white); border-radius:20px; max-width:720px; width:100%;
+    overflow:hidden; position:relative;
+  }
+  .modal-image{
+    aspect-ratio:16/10; width:100%;
+    background:linear-gradient(160deg, var(--gold-pale) 0%, var(--off-white) 60%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .modal-image img{ width:100%; height:100%; object-fit:cover; }
+  .modal-info{ padding:24px 28px 28px; }
+  .modal-info h3{ font-size:22px; margin-bottom:8px; }
+  .modal-info p{ font-size:14px; margin-bottom:16px; }
+  .modal-close{
+    position:absolute; top:16px; right:16px; width:36px; height:36px;
+    border-radius:50%; background:rgba(255,255,255,0.9); border:none;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    font-size:18px; z-index:2;
+  }
+  .modal-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:40px; height:40px; border-radius:50%;
+    background:rgba(255,255,255,0.9); border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; font-size:18px; z-index:2;
+  }
+  .modal-prev{ left:14px; } .modal-next{ right:14px; }
+
+  /* Por que nosotros */
+  .why-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
+  .why-item .why-icon{
+    width:44px; height:44px; border-radius:12px; background:var(--gold-pale);
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px;
+  }
+  .why-item .why-icon svg{ width:22px; height:22px; stroke:var(--gold); }
+  .why-item h4{ font-size:16px; margin-bottom:8px; }
+  .why-item p{ font-size:14px; }
+
+  /* Proceso */
+  .process-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; position:relative; }
+  .process-item{ position:relative; padding-top:8px; }
+  .process-num{
+    font-size:13px; font-weight:800; color:var(--gold);
+    letter-spacing:0.05em; margin-bottom:12px; display:block;
+  }
+  .process-item h4{ font-size:16px; margin-bottom:8px; }
+  .process-item p{ font-size:14px; }
+  .process-item:not(:last-child)::after{
+    content:""; position:absolute; top:14px; left:calc(100% - 8px); width:calc(24px + 8px);
+    height:1px; background:var(--border);
+  }
+
+  /* Precios */
+  .pricing-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .price-card{
+    background:var(--white); border:1px solid var(--border); border-radius:var(--radius);
+    padding:32px 28px; display:flex; flex-direction:column;
+  }
+  .price-card.featured{
+    border-color:var(--gold-light);
+    box-shadow:0 20px 44px -22px rgba(169,130,47,0.35);
+    position:relative;
+  }
+  .price-card.featured::before{
+    content:"MÁS POPULAR";
+    position:absolute; top:-11px; left:28px;
+    background:linear-gradient(135deg, var(--gold-light), var(--gold-deep));
+    color:#fff; font-size:11px; font-weight:800; letter-spacing:0.06em;
+    padding:5px 12px; border-radius:999px;
+  }
+  .price-card h3{ font-size:18px; margin-bottom:6px; }
+  .price-card .sub{ font-size:13px; color:var(--text-light); margin-bottom:20px; }
+  .price-tag{ font-size:32px; font-weight:800; color:var(--ink); margin-bottom:4px; letter-spacing:-0.02em; }
+  .price-tag span{ font-size:14px; font-weight:600; color:var(--text-light); }
+  .price-note{ font-size:12px; color:var(--text-light); margin-bottom:22px; }
+  .price-card ul{ display:flex; flex-direction:column; gap:10px; margin-bottom:26px; flex:1; }
+  .price-card ul li{ font-size:14px; display:flex; gap:8px; align-items:flex-start; }
+  .price-card ul li::before{ content:"✓"; color:var(--gold); font-weight:700; flex-shrink:0; }
+
+  /* CTA final */
+  .cta-final{
+    background:var(--white); border:1px solid var(--border); border-radius:20px;
+    padding:clamp(32px, 5vw, 56px);
+    display:grid; grid-template-columns:1fr 1fr; gap:48px;
+  }
+  .cta-final h2{ font-size:clamp(26px, 3vw, 34px); margin-bottom:14px; }
+  .cta-final p{ font-size:15px; margin-bottom:24px; }
+  .cta-whatsapp{
+    display:flex; align-items:center; gap:10px; font-weight:700; color:var(--gold); font-size:15px;
+  }
+  form.contact-form{ display:flex; flex-direction:column; gap:14px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .contact-form input, .contact-form select, .contact-form textarea{
+    width:100%; padding:13px 16px; border:1px solid var(--border); border-radius:var(--radius-sm);
+    font-family:inherit; font-size:14px; background:var(--off-white); color:var(--ink);
+    transition:border-color .3s var(--ease);
+  }
+  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus{
+    outline:none; border-color:var(--gold);
+  }
+  .contact-form textarea{ resize:vertical; min-height:90px; }
+  .contact-form label{ font-size:13px; font-weight:600; color:var(--text); margin-bottom:-8px; }
+
+  /* FAQ */
+  .faq-list{ max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+  .faq-item{
+    background:var(--white); border:1px solid var(--border); border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .faq-q{
+    width:100%; text-align:left; padding:20px 24px; background:none; border:none;
+    display:flex; align-items:center; justify-content:space-between; cursor:pointer;
+    font-size:15px; font-weight:700; color:var(--ink); font-family:inherit;
+  }
+  .faq-q .icon{ transition:transform .35s var(--ease); font-size:18px; color:var(--gold); flex-shrink:0; margin-left:16px; }
+  .faq-item.open .faq-q .icon{ transform:rotate(45deg); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .4s var(--ease); }
+  .faq-a-inner{ padding:0 24px 20px; font-size:14px; }
+
+  /* Footer */
+  footer{ background:var(--section-tint); padding:56px 24px 28px; }
+  .footer-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
+    max-width:1180px; margin:0 auto;
+  }
+  .footer-brand p{ font-size:14px; margin-top:14px; max-width:280px; }
+  footer h5{ font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink); margin-bottom:16px; }
+  footer ul{ display:flex; flex-direction:column; gap:10px; }
+  footer ul li a{ font-size:14px; color:var(--text); transition:color .3s var(--ease); }
+  footer ul li a:hover{ color:var(--gold); }
+  .footer-bottom{
+    max-width:1180px; margin:40px auto 0; padding-top:24px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:13px; color:var(--text-light);
+  }
+
+  /* Mobile */
+  @media (max-width: 960px){
+    nav.links, .nav-cta .btn-ghost{ display:none; }
+    .nav-toggle{ display:block; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; max-width:420px; margin:0 auto; }
+    .services-grid, .why-grid, .process-grid, .pricing-grid, .portfolio-grid{ grid-template-columns:1fr 1fr; }
+    .feature{ grid-template-columns:1fr; }
+    .cta-final{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .process-item::after{ display:none; }
+  }
+  @media (max-width: 620px){
+    .services-grid, .why-grid, .process-grid, .pricing-grid, .portfolio-grid, .form-row{ grid-template-columns:1fr; }
+    .feature-stats{ grid-template-columns:1fr 1fr; }
+    .footer-grid{ grid-template-columns:1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    [data-reveal]{ opacity:1; transform:none; }
+  }
+
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a href="#" class="logo">
+      <span class="logo-mark">D</span>
+      DENVASWEB
+    </a>
+    <nav class="links">
+      <a href="#servicios">Servicios</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#precios">Precios</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contacto" class="btn btn-ghost btn-sm">Contáctanos</a>
+      <a href="https://wa.me/19177423657?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Denvasweb" target="_blank" class="btn btn-primary btn-sm">Escríbenos</a>
+    </div>
+    <button class="nav-toggle" aria-label="Abrir menú"><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div data-reveal>
+      <span class="eyebrow">Servicios Denvasweb</span>
+      <h1>Todo lo que tu negocio necesita para <span class="accent">verse profesional</span> y vender más</h1>
+      <p class="lead">Sitios web, menús digitales y marketing en un mismo lugar — diseñados para negocios locales que quieren competir en serio, sin pagar precios de agencia grande.</p>
+      <div class="hero-actions">
+        <a href="#servicios" class="btn btn-primary">Ver servicios</a>
+        <a href="https://wa.me/19177423657?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Denvasweb" target="_blank" class="btn btn-ghost">Hablar por WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-visual" data-reveal>
+      <div class="device-laptop">
+        <div class="device-screen">
+          <div class="fake-bar"><span class="fake-dot"></span><span class="fake-dot"></span><span class="fake-dot"></span></div>
+          <div class="fake-body">
+            <div class="fake-line short"></div>
+            <div class="fake-line" style="width:80%"></div>
+            <div class="fake-line" style="width:65%"></div>
+            <div class="fake-line gold"></div>
+          </div>
+        </div>
+      </div>
+      <div class="device-phone">
+        <div class="screen">
+          <div class="top"></div>
+          <div class="body">
+            <div class="fake-line short" style="margin-top:10px;"></div>
+            <div class="fake-line" style="width:90%"></div>
+            <div class="fake-line" style="width:70%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow" style="justify-content:center;">Qué hacemos</span>
+      <h2>Tres formas de hacer crecer tu negocio</h2>
+      <p>Cada servicio funciona solo o combinado — muchos clientes empiezan con un sitio web y agregan menú digital o marketing después.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card" data-reveal>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 21h8"/></svg>
+        </div>
+        <h3>Sitios web y landing pages</h3>
+        <p>Tu negocio con una presencia digital que genera confianza desde el primer segundo — rápida, clara y hecha para convertir visitas en clientes.</p>
+        <div class="service-list">
+          <li>Diseño a medida, no plantillas genéricas</li>
+          <li>Galería de imágenes de tu negocio o proyectos</li>
+          <li>Integración con WhatsApp y formularios</li>
+          <li>Optimizado para que aparezcas en Google</li>
+          <li>Hosting y despliegue incluidos</li>
+        </div>
+        <div class="service-price">Desde $549</div>
+      </div>
+
+      <div class="service-card" data-reveal>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 18h6"/></svg>
+        </div>
+        <h3>Menú digital con código QR</h3>
+        <p>Tus clientes escanean, ven el menú al instante y ordenan por WhatsApp — sin apps que descargar ni comisiones por pedido.</p>
+        <div class="service-list">
+          <li>Actualiza precios y platos cuando quieras</li>
+          <li>Carrito y pedido directo por WhatsApp</li>
+          <li>Menú bilingüe y filtros por dieta</li>
+          <li>Código QR listo para imprimir</li>
+        </div>
+        <div class="service-price">Desde $299</div>
+      </div>
+
+      <div class="service-card" data-reveal>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
+        </div>
+        <h3>Marketing digital</h3>
+        <p>Campañas de anuncios y presencia en Google Business Profile para que negocios cercanos te encuentren antes que a la competencia.</p>
+        <div class="service-list">
+          <li>Campañas de WhatsApp Ads en Meta</li>
+          <li>Optimización de tu perfil de Google Business</li>
+          <li>Reportes claros de resultados cada mes</li>
+          <li>Sin contratos largos forzados</li>
+        </div>
+        <div class="service-price">Desde $350/mes</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE / CASE STUDY -->
+<section class="tint">
+  <div class="wrap">
+    <div class="feature" data-reveal>
+      <div class="feature-stats">
+        <div class="stat-box">
+          <div class="num">187</div>
+          <div class="label">Conversaciones de WhatsApp generadas</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">$2.45</div>
+          <div class="label">Costo promedio por conversación</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">&lt; 2</div>
+          <div class="label">Meses de campaña activa</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">100%</div>
+          <div class="label">Leads llegando directo al WhatsApp</div>
+        </div>
+      </div>
+      <div class="feature-copy">
+        <span class="tag">Caso real</span>
+        <h3>Así conectamos a un negocio de transporte con casi 200 clientes potenciales</h3>
+        <p>Con una campaña de anuncios de clic-a-WhatsApp bien segmentada, ayudamos a un cliente del sector transporte a recibir conversaciones reales de personas interesadas — a un costo por debajo del promedio del sector.</p>
+        <p>No se trata solo de tráfico: se trata de gente escribiendo, lista para convertirse en cliente.</p>
+        <a href="#contacto" class="btn btn-primary btn-sm" style="margin-top:8px;">Quiero resultados así</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portafolio">
+  <div class="wrap">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow" style="justify-content:center;">Portafolio</span>
+      <h2>Proyectos que ya construimos</h2>
+      <p>Cada demo está hecha para un tipo de negocio distinto. Haz clic para ver más de cerca.</p>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid" data-reveal>
+      <!-- items injected by JS from PORTFOLIO array -->
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+    <button class="modal-nav modal-prev" id="modalPrev" aria-label="Anterior">‹</button>
+    <button class="modal-nav modal-next" id="modalNext" aria-label="Siguiente">›</button>
+    <div class="modal-image">
+      <img id="modalImg" src="" alt="">
+    </div>
+    <div class="modal-info">
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+      <a href="#contacto" class="btn btn-primary btn-sm">Quiero un proyecto así</a>
+    </div>
+  </div>
+</div>
+
+<!-- POR QUE NOSOTROS -->
+<section class="tint">
+  <div class="wrap">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow" style="justify-content:center;">Por qué Denvasweb</span>
+      <h2>Hecho para negocios como el tuyo</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item" data-reveal>
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div>
+        <h4>Bilingüe y bicultural</h4>
+        <p>Entendemos al negocio latino en Estados Unidos porque hablamos su idioma y conocemos su mercado.</p>
+      </div>
+      <div class="why-item" data-reveal>
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+        <h4>Entrega rápida</h4>
+        <p>Flujo de trabajo optimizado que nos permite lanzar sitios en días, no meses.</p>
+      </div>
+      <div class="why-item" data-reveal>
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+        <h4>Contacto directo por WhatsApp</h4>
+        <p>Sin tickets de soporte ni esperas — hablas directo con la persona que construye tu proyecto.</p>
+      </div>
+      <div class="why-item" data-reveal>
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <h4>Precios transparentes</h4>
+        <p>Sabes exactamente qué pagas desde el primer mensaje — sin letra pequeña ni sorpresas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section>
+  <div class="wrap">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow" style="justify-content:center;">Cómo trabajamos</span>
+      <h2>De la primera llamada al lanzamiento</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-item" data-reveal>
+        <span class="process-num">01</span>
+        <h4>Llamada inicial</h4>
+        <p>Hablamos por WhatsApp o llamada para entender tu negocio y qué necesitas.</p>
+      </div>
+      <div class="process-item" data-reveal>
+        <span class="process-num">02</span>
+        <h4>Propuesta y diseño</h4>
+        <p>Te mostramos una propuesta visual antes de escribir una sola línea de código.</p>
+      </div>
+      <div class="process-item" data-reveal>
+        <span class="process-num">03</span>
+        <h4>Desarrollo</h4>
+        <p>Construimos y te compartimos avances para que apruebes cada paso del camino.</p>
+      </div>
+      <div class="process-item" data-reveal>
+        <span class="process-num">04</span>
+        <h4>Lanzamiento y soporte</h4>
+        <p>Publicamos tu proyecto y seguimos disponibles para ajustes y dudas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios" class="tint">
+  <div class="wrap">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow" style="justify-content:center;">Precios</span>
+      <h2>Planes claros, sin sorpresas</h2>
+      <p>Los precios varían según el alcance de tu proyecto — estos son puntos de partida.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="price-card" data-reveal>
+        <h3>Sitio web</h3>
+        <div class="sub">Landing page para tu negocio</div>
+        <div class="price-tag">Desde $549</div>
+        <div class="price-note">Pago único de configuración</div>
+        <ul>
+          <li>Diseño a medida (1–5 secciones)</li>
+          <li>Galería de imágenes de tu negocio</li>
+          <li>Formulario y botón de WhatsApp</li>
+          <li>Hosting y dominio conectados</li>
+          <li>Optimizado para móvil</li>
+        </ul>
+        <a href="https://wa.me/19177423657?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20sitio%20web" target="_blank" class="btn btn-ghost">Empezar</a>
+      </div>
+
+      <div class="price-card featured" data-reveal>
+        <h3>Menú digital QR</h3>
+        <div class="sub">Ideal para restaurantes</div>
+        <div class="price-tag">Desde $299</div>
+        <div class="price-note">Pago único de configuración</div>
+        <ul>
+          <li>Menú bilingüe con carrito</li>
+          <li>Pedido directo por WhatsApp</li>
+          <li>Actualizaciones ilimitadas de menú</li>
+          <li>Código QR para imprimir</li>
+        </ul>
+        <a href="https://wa.me/19177423657?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20men%C3%BA%20digital%20QR" target="_blank" class="btn btn-primary">Empezar</a>
+      </div>
+
+      <div class="price-card" data-reveal>
+        <h3>Marketing digital</h3>
+        <div class="sub">Anuncios y Google Business</div>
+        <div class="price-tag">Desde $350<span>/mes</span></div>
+        <div class="price-note">Sin contratos forzados</div>
+        <ul>
+          <li>Gestión de campañas en Meta Ads</li>
+          <li>Optimización de Google Business Profile</li>
+          <li>Reporte mensual de resultados</li>
+          <li>Ajustes continuos de estrategia</li>
+        </ul>
+        <a href="https://wa.me/19177423657?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20marketing%20digital" target="_blank" class="btn btn-ghost">Empezar</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="contacto">
+  <div class="wrap">
+    <div class="cta-final" data-reveal>
+      <div>
+        <span class="eyebrow">Empecemos</span>
+        <h2>Cuéntanos sobre tu negocio</h2>
+        <p>Completa el formulario o escríbenos directo por WhatsApp — respondemos rápido.</p>
+        <a href="https://wa.me/19177423657?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Denvasweb" target="_blank" class="cta-whatsapp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.35 5.07L2 22l5.06-1.33A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.18-1.77 1.24-.45.06-1.02.08-1.65-.1-.38-.11-.87-.28-1.5-.55-2.64-1.14-4.36-3.8-4.5-3.98-.13-.18-1.08-1.43-1.08-2.73 0-1.3.68-1.93.93-2.2.24-.26.53-.33.7-.33h.5c.16 0 .38-.03.58.44.22.53.75 1.83.82 1.96.07.13.11.29.02.47-.09.18-.13.29-.26.44-.13.16-.27.35-.39.47-.13.13-.26.27-.11.53.15.26.67 1.1 1.44 1.79.99.88 1.82 1.15 2.08 1.28.26.13.42.11.57-.07.16-.18.65-.76.83-1.02.18-.26.35-.22.59-.13.24.09 1.53.72 1.79.85.26.13.44.2.5.31.07.11.07.62-.15 1.24z"/></svg>
+          (917) 742-3657
+        </a>
+      </div>
+      <form class="contact-form" action="https://formspree.io/f/mqeoakpw" method="POST">
+        <div class="form-row">
+          <div>
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="nombre" required>
+          </div>
+          <div>
+            <label for="phone">WhatsApp</label>
+            <input type="tel" id="phone" name="telefono" required>
+          </div>
+        </div>
+        <div>
+          <label for="business">Nombre del negocio</label>
+          <input type="text" id="business" name="negocio">
+        </div>
+        <div>
+          <label for="service">Servicio que te interesa</label>
+          <select id="service" name="servicio">
+            <option value="Sitio web">Sitio web</option>
+            <option value="Menú digital QR">Menú digital QR</option>
+            <option value="Marketing digital">Marketing digital</option>
+            <option value="No estoy seguro">No estoy seguro</option>
+          </select>
+        </div>
+        <div>
+          <label for="message">Cuéntanos sobre tu proyecto</label>
+          <textarea id="message" name="mensaje"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="tint">
+  <div class="wrap">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow" style="justify-content:center;">Preguntas frecuentes</span>
+      <h2>Lo que más nos preguntan</h2>
+    </div>
+    <div class="faq-list" data-reveal>
+      <div class="faq-item">
+        <button class="faq-q">¿Cuánto tarda un proyecto en estar listo? <span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Un sitio web sencillo suele estar listo en 5 a 10 días. Un menú digital QR o una campaña de marketing pueden tomar un poco menos, dependiendo de qué tan rápido nos compartas el contenido.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Necesito contratar hosting por separado? <span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">No. El hosting y el dominio quedan conectados como parte del proyecto — tú solo te preocupas por tu negocio.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Puedo actualizar el contenido después del lanzamiento? <span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Sí. En menús digitales puedes actualizar precios y platos cuando quieras. En sitios web, los ajustes menores se coordinan directo por WhatsApp.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Trabajan con negocios fuera de Estados Unidos? <span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Sí, trabajamos con clientes en distintos países. La comunicación es 100% remota por WhatsApp y videollamada cuando hace falta.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cómo funciona el pago? <span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Para sitios web y menús digitales se divide en un adelanto y un pago final antes del lanzamiento. Para marketing digital, la mensualidad se cobra cada mes según el plan acordado.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo"><span class="logo-mark">D</span>DENVASWEB</a>
+      <p>Diseño web, menús digitales y marketing para negocios locales, con un enfoque bilingüe y directo.</p>
+    </div>
+    <div>
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="#servicios">Sitios web</a></li>
+        <li><a href="#servicios">Menú digital QR</a></li>
+        <li><a href="#servicios">Marketing digital</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Compañía</h5>
+      <ul>
+        <li><a href="#portafolio">Portafolio</a></li>
+        <li><a href="#precios">Precios</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Contacto</h5>
+      <ul>
+        <li><a href="https://wa.me/19177423657" target="_blank">WhatsApp</a></li>
+        <li><a href="#contacto">Formulario</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Denvasweb. Todos los derechos reservados.</span>
+    <span>Hecho con cuidado en Nueva York</span>
+  </div>
+</footer>
+
+<script>
+  // ---- Portfolio data ----
+  // Usa las mismas URLs de Cloudinary que las tarjetas de proyectos en denvasweb.com
+  const PORTFOLIO = [
+    {
+      title: "SteelCrest",
+      category: "Construcción / Roofing",
+      desc: "Landing page para empresa de techado y construcción, enfocada en generar llamadas directas de propietarios.",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-steelcrest.webp"
+    },
+    {
+      title: "Ironwood",
+      category: "Construcción",
+      desc: "Sitio para contratista general con portafolio de proyectos y formulario de cotización rápida.",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-ironwood.webp"
+    },
+    {
+      title: "Pristine Pro",
+      category: "Limpieza",
+      desc: "Landing page para servicio de limpieza comercial y residencial con reserva directa por WhatsApp.",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-pristinepro.webp"
+    },
+    {
+      title: "Aldrich & Co.",
+      category: "Servicios profesionales",
+      desc: "Sitio corporativo elegante para firma de servicios, con enfoque en confianza y credibilidad.",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-aldrich.webp"
+    },
+    {
+      title: "Sazón Urbana",
+      category: "Restaurante — Menú QR",
+      desc: "Menú digital completo con carrito, checkout por WhatsApp, filtros por dieta y toggle bilingüe.",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-sazonurbana.webp"
+    }
+  ];
+
+  const grid = document.getElementById('portfolioGrid');
+  PORTFOLIO.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.className = 'portfolio-item';
+    el.dataset.index = i;
+    el.innerHTML = `
+      <div class="portfolio-thumb">
+        <img src="${item.src}" alt="${item.title}" onerror="this.style.display='none'; this.parentElement.querySelector('.ph-label').style.display='block';">
+        <span class="ph-label" style="display:none;">${item.title}</span>
+      </div>
+      <div class="portfolio-overlay">
+        <div class="info"><h4>${item.title}</h4><span>${item.category}</span></div>
+      </div>
+      <div class="portfolio-meta">
+        <h4>${item.title}</h4>
+        <span>${item.category}</span>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+
+  // ---- Modal / carousel logic ----
+  const backdrop = document.getElementById('modalBackdrop');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  let currentIndex = 0;
+
+  function openModal(index){
+    currentIndex = index;
+    renderModal();
+    backdrop.classList.add('open');
+  }
+  function renderModal(){
+    const item = PORTFOLIO[currentIndex];
+    modalImg.src = item.src;
+    modalImg.alt = item.title;
+    modalTitle.textContent = item.title;
+    modalDesc.textContent = item.desc;
+  }
+  function closeModal(){ backdrop.classList.remove('open'); }
+
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.portfolio-item');
+    if(card) openModal(parseInt(card.dataset.index, 10));
+  });
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalPrev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + PORTFOLIO.length) % PORTFOLIO.length;
+    renderModal();
+  });
+  document.getElementById('modalNext').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % PORTFOLIO.length;
+    renderModal();
+  });
+  backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeModal(); });
+  document.addEventListener('keydown', (e) => {
+    if(!backdrop.classList.contains('open')) return;
+    if(e.key === 'Escape') closeModal();
+    if(e.key === 'ArrowLeft') document.getElementById('modalPrev').click();
+    if(e.key === 'ArrowRight') document.getElementById('modalNext').click();
+  });
+
+  // ---- FAQ accordion ----
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  // ---- Mobile nav toggle (simple show/hide of links inline) ----
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('nav.links');
+  toggle.addEventListener('click', () => {
+    const isOpen = links.style.display === 'flex';
+    links.style.cssText = isOpen ? '' : 'display:flex; flex-direction:column; position:absolute; top:100%; left:0; right:0; background:var(--off-white); padding:20px 24px; border-bottom:1px solid var(--border);';
+  });
+</script>
+
+</body>
+</html>
