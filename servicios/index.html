@@ -260,6 +260,7 @@
     display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
   }
   .portfolio-item{
+    display:block;
     position:relative; border-radius:var(--radius); overflow:hidden;
     border:1px solid var(--border);
     cursor:pointer;
@@ -287,41 +288,6 @@
   .portfolio-meta{ padding:14px 16px; }
   .portfolio-meta h4{ font-size:15px; }
   .portfolio-meta span{ font-size:13px; color:var(--text-light); }
-
-  /* Modal / carousel */
-  .modal-backdrop{
-    position:fixed; inset:0; background:rgba(36,30,21,0.6);
-    display:none; align-items:center; justify-content:center;
-    z-index:1000; padding:24px;
-    backdrop-filter:blur(4px);
-  }
-  .modal-backdrop.open{ display:flex; }
-  .modal-box{
-    background:var(--white); border-radius:20px; max-width:720px; width:100%;
-    overflow:hidden; position:relative;
-  }
-  .modal-image{
-    aspect-ratio:16/10; width:100%;
-    background:linear-gradient(160deg, var(--gold-pale) 0%, var(--off-white) 60%);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .modal-image img{ width:100%; height:100%; object-fit:cover; }
-  .modal-info{ padding:24px 28px 28px; }
-  .modal-info h3{ font-size:22px; margin-bottom:8px; }
-  .modal-info p{ font-size:14px; margin-bottom:16px; }
-  .modal-close{
-    position:absolute; top:16px; right:16px; width:36px; height:36px;
-    border-radius:50%; background:rgba(255,255,255,0.9); border:none;
-    display:flex; align-items:center; justify-content:center; cursor:pointer;
-    font-size:18px; z-index:2;
-  }
-  .modal-nav{
-    position:absolute; top:50%; transform:translateY(-50%);
-    width:40px; height:40px; border-radius:50%;
-    background:rgba(255,255,255,0.9); border:none; cursor:pointer;
-    display:flex; align-items:center; justify-content:center; font-size:18px; z-index:2;
-  }
-  .modal-prev{ left:14px; } .modal-next{ right:14px; }
 
   /* Por que nosotros */
   .why-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
@@ -616,30 +582,13 @@
     <div class="section-head center" data-reveal>
       <span class="eyebrow" style="justify-content:center;">Portafolio</span>
       <h2>Proyectos que ya construimos</h2>
-      <p>Cada demo está hecha para un tipo de negocio distinto. Haz clic para ver más de cerca.</p>
+      <p>Cada demo está hecha para un tipo de negocio distinto. Haz clic para ver el proyecto completo.</p>
     </div>
     <div class="portfolio-grid" id="portfolioGrid" data-reveal>
       <!-- items injected by JS from PORTFOLIO array -->
     </div>
   </div>
 </section>
-
-<!-- Modal -->
-<div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal-box">
-    <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
-    <button class="modal-nav modal-prev" id="modalPrev" aria-label="Anterior">‹</button>
-    <button class="modal-nav modal-next" id="modalNext" aria-label="Siguiente">›</button>
-    <div class="modal-image">
-      <img id="modalImg" src="" alt="">
-    </div>
-    <div class="modal-info">
-      <h3 id="modalTitle"></h3>
-      <p id="modalDesc"></p>
-      <a href="#contacto" class="btn btn-primary btn-sm">Quiero un proyecto así</a>
-    </div>
-  </div>
-</div>
 
 <!-- POR QUE NOSOTROS -->
 <section class="tint">
@@ -879,48 +828,51 @@
 
 <script>
   // ---- Portfolio data ----
-  // Usa las mismas URLs de Cloudinary que las tarjetas de proyectos en denvasweb.com
+  // Imágenes optimizadas vía Cloudinary (f_auto,q_auto). Cada tarjeta enlaza
+  // directo al carrusel en vivo de denvasweb.com/portfolio en el proyecto correspondiente.
   const PORTFOLIO = [
     {
       title: "SteelCrest",
       category: "Construcción / Roofing",
-      desc: "Landing page para empresa de techado y construcción, enfocada en generar llamadas directas de propietarios.",
-      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-steelcrest.webp"
+      slug: "steelcrest",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/f_auto,q_auto,w_800/project-steelcrest"
     },
     {
       title: "Ironwood",
       category: "Construcción",
-      desc: "Sitio para contratista general con portafolio de proyectos y formulario de cotización rápida.",
-      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-ironwood.webp"
+      slug: "ironwood",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/f_auto,q_auto,w_800/project-ironwood"
     },
     {
       title: "Pristine Pro",
       category: "Limpieza",
-      desc: "Landing page para servicio de limpieza comercial y residencial con reserva directa por WhatsApp.",
-      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-pristinepro.webp"
+      slug: "pristine",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/f_auto,q_auto,w_800/project-pristine"
     },
     {
       title: "Aldrich & Co.",
       category: "Servicios profesionales",
-      desc: "Sitio corporativo elegante para firma de servicios, con enfoque en confianza y credibilidad.",
-      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-aldrich.webp"
+      slug: "aldrich",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/f_auto,q_auto,w_800/project-aldrich"
     },
     {
       title: "Sazón Urbana",
       category: "Restaurante — Menú QR",
-      desc: "Menú digital completo con carrito, checkout por WhatsApp, filtros por dieta y toggle bilingüe.",
-      src: "https://res.cloudinary.com/kat6qihq/image/upload/project-sazonurbana.webp"
+      slug: "sazon-urbana",
+      src: "https://res.cloudinary.com/kat6qihq/image/upload/f_auto,q_auto,w_800/sazon-urbana-full"
     }
   ];
 
   const grid = document.getElementById('portfolioGrid');
-  PORTFOLIO.forEach((item, i) => {
-    const el = document.createElement('div');
+  PORTFOLIO.forEach((item) => {
+    const el = document.createElement('a');
     el.className = 'portfolio-item';
-    el.dataset.index = i;
+    el.href = `https://denvasweb.com/portfolio#${item.slug}`;
+    el.target = '_blank';
+    el.rel = 'noopener';
     el.innerHTML = `
       <div class="portfolio-thumb">
-        <img src="${item.src}" alt="${item.title}" onerror="this.style.display='none'; this.parentElement.querySelector('.ph-label').style.display='block';">
+        <img src="${item.src}" alt="${item.title}" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.ph-label').style.display='block';">
         <span class="ph-label" style="display:none;">${item.title}</span>
       </div>
       <div class="portfolio-overlay">
@@ -932,48 +884,6 @@
       </div>
     `;
     grid.appendChild(el);
-  });
-
-  // ---- Modal / carousel logic ----
-  const backdrop = document.getElementById('modalBackdrop');
-  const modalImg = document.getElementById('modalImg');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalDesc = document.getElementById('modalDesc');
-  let currentIndex = 0;
-
-  function openModal(index){
-    currentIndex = index;
-    renderModal();
-    backdrop.classList.add('open');
-  }
-  function renderModal(){
-    const item = PORTFOLIO[currentIndex];
-    modalImg.src = item.src;
-    modalImg.alt = item.title;
-    modalTitle.textContent = item.title;
-    modalDesc.textContent = item.desc;
-  }
-  function closeModal(){ backdrop.classList.remove('open'); }
-
-  grid.addEventListener('click', (e) => {
-    const card = e.target.closest('.portfolio-item');
-    if(card) openModal(parseInt(card.dataset.index, 10));
-  });
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-  document.getElementById('modalPrev').addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + PORTFOLIO.length) % PORTFOLIO.length;
-    renderModal();
-  });
-  document.getElementById('modalNext').addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % PORTFOLIO.length;
-    renderModal();
-  });
-  backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeModal(); });
-  document.addEventListener('keydown', (e) => {
-    if(!backdrop.classList.contains('open')) return;
-    if(e.key === 'Escape') closeModal();
-    if(e.key === 'ArrowLeft') document.getElementById('modalPrev').click();
-    if(e.key === 'ArrowRight') document.getElementById('modalNext').click();
   });
 
   // ---- FAQ accordion ----
