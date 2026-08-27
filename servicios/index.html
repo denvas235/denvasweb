@@ -936,5 +936,18 @@
   });
 </script>
 
+<script>
+  // Evento GA4: clic en cualquier enlace de WhatsApp (wa.me)
+  document.addEventListener('click', function(e){
+    const link = e.target.closest('a[href*="wa.me"]');
+    if (link && typeof gtag === 'function') {
+      gtag('event', 'click_whatsapp', {
+        link_url: link.href,
+        page_location: window.location.href
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
