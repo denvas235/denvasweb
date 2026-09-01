@@ -17,18 +17,14 @@ const CLOUDINARY_CLOUD = 'kat6qihq'; // Denvasweb's existing Cloudinary cloud
 const assets = {
   'hero-website': 'hero-website-project',
   'hero-webapp': 'hero-webapp-sazon',
-  'service-websites': 'service-websites-webapps',
-  'service-meta-ads': 'service-meta-ads',
-  'service-google-ads': 'service-google-ads',
   'sazon-urbana-full': 'sazon-urbana-full',
-  'sazon-app-screen': 'sazon-urbana-app-screen',
-  'sazon-cart': 'sazon-urbana-cart',
   'project-ironwood': 'project-ironwood',
   'project-pristine': 'project-pristine',
   'project-aldrich': 'project-aldrich',
   'project-steelcrest': 'project-steelcrest',
-  'meta-ads-visual': 'meta-ads-visual',
-  'google-ads-visual': 'google-ads-visual',
+  'step-website': 'hero-website-project',
+  'step-google-maps': 'step-google-maps',
+  'step-ads': 'google-ads-visual',
   'logo': 'logo',
 };
 
@@ -105,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Scroll reveal for sections ---------- */
   const scrollRevealTargets = document.querySelectorAll(
-    '.service-card, .portfolio-card, .why-item, .process-step, .advertising-card'
+    '.step-card, .why-item, .price-card'
   );
   if ('IntersectionObserver' in window && !prefersReducedMotion) {
     scrollRevealTargets.forEach(el => {
@@ -145,6 +141,42 @@ document.addEventListener('DOMContentLoaded', () => {
       answer.style.maxHeight = isOpen ? null : answer.scrollHeight + 'px';
     });
   });
+
+  /* ---------- Project carousel (autoplay every 4s) ---------- */
+  const track = document.getElementById('carousel-track');
+  const dotsWrap = document.getElementById('carousel-dots');
+  if (track && dotsWrap) {
+    const slides = Array.from(track.children);
+    let current = 0;
+    let autoplayTimer = null;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Ir al proyecto ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function goTo(index) {
+      current = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function startAutoplay() {
+      if (prefersReducedMotion) return;
+      autoplayTimer = setInterval(() => goTo(current + 1), 4000);
+    }
+    function stopAutoplay() { clearInterval(autoplayTimer); }
+
+    startAutoplay();
+    const carouselEl = document.getElementById('project-carousel');
+    carouselEl.addEventListener('mouseenter', stopAutoplay);
+    carouselEl.addEventListener('mouseleave', startAutoplay);
+    carouselEl.addEventListener('touchstart', stopAutoplay, { passive: true });
+  }
 
   /* ---------- Mobile sticky CTA visibility ---------- */
   const stickyCta = document.getElementById('mobile-sticky-cta');

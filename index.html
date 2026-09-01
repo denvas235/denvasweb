@@ -59,8 +59,8 @@
     </a>
 
     <nav class="main-nav" id="main-nav">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
+      <a href="#work">Proyectos</a>
+      <a href="#steps">Cómo Funciona</a>
       <a href="#pricing">Precios</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -120,183 +120,102 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section class="services" id="services">
+  <!-- PROJECT CAROUSEL -->
+  <section class="carousel-section" id="work">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Lo que construimos</span>
-        <h2>Tres formas de crecer online.</h2>
-      </div>
-
-      <div class="services-grid">
-
-        <article class="service-card service-featured">
-          <span class="service-num">01</span>
-          <h3>Websites &amp; Web Apps</h3>
-          <p>Websites profesionales, landing pages, menús digitales y web apps hechas a la medida de tu negocio — no plantillas genéricas.</p>
-          <div class="service-visual">
-            <img src="images/service-websites-webapps.webp" data-asset="service-websites" data-width="800" alt="Ejemplo de website y web app construidos por Denvasweb" loading="lazy">
-          </div>
-          <a href="#work" class="service-link">Ver ejemplos →</a>
-        </article>
-
-        <article class="service-card">
-          <span class="service-num">02</span>
-          <h3>Social Media Advertising</h3>
-          <p>Campañas en Facebook e Instagram para conectar tu negocio con las personas que están cerca y listas para comprar.</p>
-          <div class="service-visual service-visual-small">
-            <img src="images/service-meta-ads.webp" data-asset="service-meta-ads" data-width="600" alt="Campañas de Meta Ads" loading="lazy">
-          </div>
-        </article>
-
-        <article class="service-card">
-          <span class="service-num">03</span>
-          <h3>Google Ads</h3>
-          <p>Campañas de búsqueda para aparecer justo cuando alguien está buscando el servicio que tú ofreces.</p>
-          <div class="service-visual service-visual-small">
-            <img src="images/service-google-ads.webp" data-asset="service-google-ads" data-width="600" alt="Campañas de Google Ads" loading="lazy">
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- SAZÓN URBANA / WEB APP SHOWCASE -->
-  <section class="webapp-feature" id="webapp">
-    <div class="container webapp-inner">
-      <div class="webapp-copy">
-        <span class="eyebrow eyebrow-light">Web App</span>
-        <h2>Más que una página web.<br>Una herramienta que tu negocio usa todos los días.</h2>
-        <p>Sazón Urbana es un menú digital construido como web app: categorías, productos, carrito y flujo de pedido completo — pensado para restaurantes que quieren verse tan bien como saben.</p>
-        <a href="#contact" class="btn btn-outline-light">Quiero algo así para mi negocio</a>
-      </div>
-      <div class="webapp-visual">
-        <div class="webapp-glow" aria-hidden="true"></div>
-        <div class="phone-mock phone-mock-lg">
-          <div class="phone-screen">
-            <img src="images/sazon-urbana-app-screen.webp" data-asset="sazon-app-screen" data-width="500" alt="Menú digital Sazón Urbana - categorías y productos" loading="lazy">
-          </div>
-        </div>
-        <div class="phone-mock phone-mock-sm">
-          <div class="phone-screen">
-            <img src="images/sazon-urbana-cart.webp" data-asset="sazon-cart" data-width="400" alt="Carrito de pedido Sazón Urbana" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO -->
-  <section class="portfolio" id="work">
-    <div class="container">
-      <div class="section-head">
+      <div class="section-head section-head-center">
         <span class="eyebrow">Trabajo real</span>
         <h2>Proyectos que hemos construido.</h2>
       </div>
+    </div>
 
-      <div class="portfolio-grid">
-        <a href="https://denvasweb.com/portfolio#ironwood" class="portfolio-card" target="_blank" rel="noopener">
-          <div class="portfolio-img"><img src="images/project-ironwood.webp" data-asset="project-ironwood" data-width="800" alt="Website de Ironwood Construction" loading="lazy"></div>
-          <div class="portfolio-meta">
-            <h3>Ironwood Construction</h3>
-            <span>Business Website</span>
-          </div>
+    <div class="carousel" id="project-carousel">
+      <div class="carousel-track-wrap">
+      <div class="carousel-track" id="carousel-track">
+        <a href="https://denvasweb.com/portfolio#ironwood" class="carousel-slide" target="_blank" rel="noopener">
+          <img src="images/project-ironwood.webp" data-asset="project-ironwood" data-width="1000" alt="Website de Ironwood Construction" loading="lazy">
+          <div class="carousel-caption"><h3>Ironwood Construction</h3><span>Business Website</span></div>
         </a>
-
-        <a href="https://denvasweb.com/portfolio#pristine" class="portfolio-card" target="_blank" rel="noopener">
-          <div class="portfolio-img"><img src="images/project-pristine.webp" data-asset="project-pristine" data-width="800" alt="Website de Pristine Pro Cleaning" loading="lazy"></div>
-          <div class="portfolio-meta">
-            <h3>Pristine Pro Cleaning</h3>
-            <span>Business Website</span>
-          </div>
+        <a href="https://denvasweb.com/portfolio#pristine" class="carousel-slide" target="_blank" rel="noopener">
+          <img src="images/project-pristine.webp" data-asset="project-pristine" data-width="1000" alt="Website de Pristine Pro Cleaning" loading="lazy">
+          <div class="carousel-caption"><h3>Pristine Pro Cleaning</h3><span>Business Website</span></div>
         </a>
-
-        <a href="https://denvasweb.com/portfolio#aldrich" class="portfolio-card" target="_blank" rel="noopener">
-          <div class="portfolio-img"><img src="images/project-aldrich.webp" data-asset="project-aldrich" data-width="800" alt="Website de Aldrich & Co. Architecture" loading="lazy"></div>
-          <div class="portfolio-meta">
-            <h3>Aldrich &amp; Co. Architecture</h3>
-            <span>Business Website</span>
-          </div>
+        <a href="https://denvasweb.com/portfolio#aldrich" class="carousel-slide" target="_blank" rel="noopener">
+          <img src="images/project-aldrich.webp" data-asset="project-aldrich" data-width="1000" alt="Website de Aldrich & Co. Architecture" loading="lazy">
+          <div class="carousel-caption"><h3>Aldrich &amp; Co. Architecture</h3><span>Business Website</span></div>
         </a>
-
-        <a href="https://denvasweb.com/portfolio#steelcrest" class="portfolio-card" target="_blank" rel="noopener">
-          <div class="portfolio-img"><img src="images/project-steelcrest.webp" data-asset="project-steelcrest" data-width="800" alt="Website de SteelCrest Roofing" loading="lazy"></div>
-          <div class="portfolio-meta">
-            <h3>SteelCrest Roofing</h3>
-            <span>Business Website</span>
-          </div>
+        <a href="https://denvasweb.com/portfolio#steelcrest" class="carousel-slide" target="_blank" rel="noopener">
+          <img src="images/project-steelcrest.webp" data-asset="project-steelcrest" data-width="1000" alt="Website de SteelCrest Roofing" loading="lazy">
+          <div class="carousel-caption"><h3>SteelCrest Roofing</h3><span>Business Website</span></div>
         </a>
-
-        <a href="#webapp" class="portfolio-card portfolio-card-accent">
-          <div class="portfolio-img"><img src="images/sazon-urbana-menu.webp" data-asset="sazon-urbana-full" data-width="400" alt="Sazón Urbana web app de menú digital" loading="lazy"></div>
-          <div class="portfolio-meta">
-            <h3>Sazón Urbana</h3>
-            <span>Digital Menu / Web App</span>
-          </div>
+        <a href="https://denvasweb.com/portfolio#sazon-urbana" class="carousel-slide" target="_blank" rel="noopener">
+          <img src="images/sazon-urbana-menu.webp" data-asset="sazon-urbana-full" data-width="1000" alt="Sazón Urbana web app de menú digital" loading="lazy">
+          <div class="carousel-caption"><h3>Sazón Urbana</h3><span>Digital Menu / Web App</span></div>
         </a>
       </div>
+      </div>
+      <div class="carousel-dots" id="carousel-dots"></div>
     </div>
   </section>
 
-  <!-- WHY DENVASWEB -->
-  <section class="why" id="why">
+  <!-- 3 STEPS -->
+  <section class="steps" id="steps">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Por qué Denvasweb</span>
-        <h2>Cuatro razones para trabajar juntos.</h2>
+      <div class="section-head section-head-center">
+        <span class="eyebrow">Cómo empezamos</span>
+        <h2>Tres pasos para hacer crecer tu negocio.</h2>
       </div>
 
-      <div class="why-grid">
-        <div class="why-item">
-          <h3>Diseño pensado para tu negocio</h3>
-          <p>No partimos de una plantilla. Cada proyecto se construye alrededor de lo que tu negocio realmente necesita.</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-num">1</span>
+          <div class="step-visual"><img src="images/step-website.webp" data-asset="step-website" data-width="700" alt="Sitio web profesional" loading="lazy"></div>
+          <h3>Tu Sitio Web</h3>
+          <p>Un sitio profesional que representa tu negocio y genera confianza desde el primer clic.</p>
         </div>
-        <div class="why-item">
-          <h3>Web + Marketing, en un solo lugar</h3>
-          <p>Construimos tu presencia digital y, cuando lo necesites, te ayudamos a promocionarla.</p>
+        <div class="step-card">
+          <span class="step-num">2</span>
+          <div class="step-visual"><img src="images/step-google-maps.webp" data-asset="step-google-maps" data-width="700" alt="Negocio en Google Maps" loading="lazy"></div>
+          <h3>Tu Negocio en Google Maps</h3>
+          <p>Que te encuentren cuando alguien busca tu servicio cerca de ellos.</p>
         </div>
-        <div class="why-item">
-          <h3>Comunicación clara</h3>
-          <p>Sin lenguaje técnico innecesario. Entiendes exactamente qué estamos construyendo y por qué.</p>
-        </div>
-        <div class="why-item">
-          <h3>Soluciones que crecen contigo</h3>
-          <p>Desde una landing page simple hasta una web app completa o campañas publicitarias.</p>
+        <div class="step-card">
+          <span class="step-num">3</span>
+          <div class="step-visual"><img src="images/step-ads.webp" data-asset="step-ads" data-width="700" alt="Publicidad en Google Ads y Facebook Ads" loading="lazy"></div>
+          <h3>Publicidad en Google Ads o Facebook Ads</h3>
+          <p>Lleva tráfico real a tu sitio, justo frente a las personas listas para contratarte.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROCESS -->
-  <section class="process" id="process">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Cómo trabajamos</span>
-        <h2>Simple. Claro. Profesional.</h2>
-      </div>
+  <!-- WHATSAPP CTA -->
+  <section class="whatsapp-cta">
+    <div class="container whatsapp-cta-inner">
+      <h2>¿Listo para empezar?</h2>
+      <a href="https://wa.me/19177423657" class="whatsapp-cta-btn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.004 3C9.377 3 4 8.373 4 15c0 2.386.7 4.61 1.902 6.482L4 29l7.72-1.86A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm6.98 16.71c-.297.837-1.47 1.53-2.41 1.73-.64.135-1.478.243-4.294-.922-3.605-1.49-5.926-5.148-6.108-5.39-.176-.242-1.463-1.948-1.463-3.714 0-1.766.925-2.634 1.253-2.996.328-.363.716-.454.955-.454.238 0 .478.002.687.013.22.011.516-.083.807.616.297.716 1.01 2.482 1.098 2.663.088.18.147.393.03.635-.12.242-.18.393-.357.605-.176.212-.372.474-.532.635-.177.18-.362.375-.156.735.207.363.92 1.518 1.976 2.46 1.358 1.21 2.503 1.585 2.865 1.766.362.18.573.15.784-.09.212-.24.907-1.06 1.15-1.42.238-.363.478-.303.803-.181.328.12 2.08.982 2.436 1.16.357.18.594.27.68.42.09.15.09.87-.207 1.71Z"/></svg>
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+  </section>
 
-      <div class="process-grid">
-        <div class="process-step">
-          <span class="process-num">01</span>
-          <h3>Hablamos</h3>
-          <p>Conocemos tu negocio y lo que necesitas.</p>
-        </div>
-        <div class="process-step">
-          <span class="process-num">02</span>
-          <h3>Planeamos</h3>
-          <p>Definimos la solución correcta para ti.</p>
-        </div>
-        <div class="process-step">
-          <span class="process-num">03</span>
-          <h3>Construimos</h3>
-          <p>Diseñamos y desarrollamos tu proyecto.</p>
-        </div>
-        <div class="process-step">
-          <span class="process-num">04</span>
-          <h3>Promocionamos</h3>
-          <p>Si lo necesitas, ayudamos a atraer tráfico con publicidad.</p>
-        </div>
+  <!-- TIKTOK VIDEO -->
+  <section class="video-showcase" id="video">
+    <div class="container video-inner">
+      <div class="video-copy">
+        <span class="eyebrow eyebrow-light">Contenido real</span>
+        <h2>Así trabajamos.</h2>
+        <p>Sígueme en TikTok para ver el proceso completo detrás de cada proyecto que construimos.</p>
+      </div>
+      <div class="video-frame">
+        <iframe
+          src="https://player.cloudinary.com/embed/?cloud_name=kat6qihq&public_id=ssstik.io_1788298748389&source_types[0]=mp4&controls=true&loop=true"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          title="Video de TikTok de Denvasweb">
+        </iframe>
       </div>
     </div>
   </section>
@@ -304,7 +223,7 @@
   <!-- PRICING -->
   <section class="pricing" id="pricing">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head section-head-center">
         <span class="eyebrow">Inversión clara</span>
         <h2>Precios sin sorpresas.</h2>
       </div>
@@ -341,26 +260,6 @@
     </div>
   </section>
 
-  <!-- ADVERTISING -->
-  <section class="advertising" id="advertising">
-    <div class="container advertising-inner">
-      <h2>Tu negocio necesita más que una buena presencia digital.<br>Necesita llegar a las personas correctas.</h2>
-      <div class="advertising-grid">
-        <div class="advertising-card">
-          <div class="advertising-visual"><img src="images/meta-ads-visual.webp" data-asset="meta-ads-visual" data-width="700" alt="Meta Ads - Facebook e Instagram" loading="lazy"></div>
-          <h3>Meta Ads</h3>
-          <p>Campañas en Facebook e Instagram para llegar a clientes potenciales cerca de ti.</p>
-        </div>
-        <div class="advertising-card">
-          <div class="advertising-visual"><img src="images/google-ads-visual.webp" data-asset="google-ads-visual" data-width="700" alt="Google Ads - búsqueda" loading="lazy"></div>
-          <h3>Google Ads</h3>
-          <p>Presencia en el momento exacto en que alguien busca lo que ofreces.</p>
-        </div>
-      </div>
-      <p class="advertising-note">Estrategia clara, sin promesas de resultados garantizados.</p>
-    </div>
-  </section>
-
   <!-- CTA / FORM -->
   <section class="contact" id="contact">
     <div class="container contact-inner">
@@ -368,10 +267,6 @@
         <span class="eyebrow eyebrow-light">Empecemos</span>
         <h2>Hablemos de tu proyecto.</h2>
         <p>Cuéntanos sobre tu negocio y te respondemos con los siguientes pasos.</p>
-
-        <a href="https://wa.me/19177423657" class="whatsapp-link" target="_blank" rel="noopener">
-          <span class="whatsapp-icon" aria-hidden="true">✆</span> Escríbenos por WhatsApp
-        </a>
       </div>
 
       <form class="contact-form" id="contact-form" action="https://formspree.io/f/mqeoakpw" method="POST">
@@ -413,6 +308,35 @@
         <button type="submit" class="btn btn-primary btn-lg btn-full">Enviar mensaje</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
+    </div>
+  </section>
+
+  <!-- WHY DENVASWEB -->
+  <section class="why" id="why">
+    <div class="container">
+      <div class="section-head section-head-center">
+        <span class="eyebrow">Por qué Denvasweb</span>
+        <h2>Cuatro razones para trabajar juntos.</h2>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>Diseño pensado para tu negocio</h3>
+          <p>No partimos de una plantilla. Cada proyecto se construye alrededor de lo que tu negocio realmente necesita.</p>
+        </div>
+        <div class="why-item">
+          <h3>Web + Marketing, en un solo lugar</h3>
+          <p>Construimos tu presencia digital y, cuando lo necesites, te ayudamos a promocionarla.</p>
+        </div>
+        <div class="why-item">
+          <h3>Comunicación clara</h3>
+          <p>Sin lenguaje técnico innecesario. Entiendes exactamente qué estamos construyendo y por qué.</p>
+        </div>
+        <div class="why-item">
+          <h3>Soluciones que crecen contigo</h3>
+          <p>Desde una landing page simple hasta una web app completa o campañas publicitarias.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -466,9 +390,9 @@
       <p>Websites, web apps y publicidad para pequeños negocios.</p>
     </div>
     <nav class="footer-nav">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#process">Process</a>
+      <a href="#work">Proyectos</a>
+      <a href="#steps">Cómo Funciona</a>
+      <a href="#pricing">Precios</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="footer-contact">
