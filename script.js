@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const dot = document.createElement('button');
       dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
       dot.setAttribute('aria-label', `Ir al proyecto ${i + 1}`);
-      dot.addEventListener('click', () => goTo(i));
+      dot.addEventListener('click', () => { goTo(i); resetAutoplay(); });
       dotsWrap.appendChild(dot);
     });
     const dots = Array.from(dotsWrap.children);
@@ -170,12 +170,28 @@ document.addEventListener('DOMContentLoaded', () => {
       autoplayTimer = setInterval(() => goTo(current + 1), 4000);
     }
     function stopAutoplay() { clearInterval(autoplayTimer); }
+    function resetAutoplay() { stopAutoplay(); startAutoplay(); }
 
     startAutoplay();
     const carouselEl = document.getElementById('project-carousel');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+
+    prevBtn.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+    nextBtn.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
+
+    // Pause on hover (desktop only) - resumes on mouse leave
     carouselEl.addEventListener('mouseenter', stopAutoplay);
     carouselEl.addEventListener('mouseleave', startAutoplay);
-    carouselEl.addEventListener('touchstart', stopAutoplay, { passive: true });
+
+    // On mobile there's no "hover" - briefly pause on touch so it doesn't
+    // fight a swipe, then always resume shortly after. Never stop forever.
+    let touchResumeTimer = null;
+    carouselEl.addEventListener('touchstart', () => {
+      stopAutoplay();
+      clearTimeout(touchResumeTimer);
+      touchResumeTimer = setTimeout(startAutoplay, 3000);
+    }, { passive: true });
   }
 
   /* ---------- Mobile sticky CTA visibility ---------- */

@@ -315,6 +315,29 @@ p { line-height: 1.65; }
 }
 .carousel-caption h3 { color: #fff; font-size: 18px; margin-bottom: 2px; }
 .carousel-caption span { color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600; }
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(36,30,21,0.14);
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+.carousel-arrow:hover { background: var(--gold); color: #fff; box-shadow: 0 8px 22px rgba(166,130,47,0.3); }
+.carousel-arrow svg { width: 18px; height: 18px; }
+.carousel-arrow-prev { left: -4px; }
+.carousel-arrow-next { right: -4px; }
+
 .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
 .carousel-dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -547,6 +570,11 @@ p { line-height: 1.65; }
   .why-grid { grid-template-columns: 1fr; }
   .pricing-grid { grid-template-columns: repeat(2, 1fr); }
   .form-row { grid-template-columns: 1fr; }
+  .carousel { padding: 0 8px; }
+  .carousel-arrow { width: 34px; height: 34px; }
+  .carousel-arrow svg { width: 15px; height: 15px; }
+  .carousel-arrow-prev { left: -2px; }
+  .carousel-arrow-next { right: -2px; }
   .mobile-sticky-cta { display: block; }
   section { padding-left: 0; }
   .why, .contact, .pricing { padding: 70px 0; }
