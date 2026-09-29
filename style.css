@@ -371,6 +371,19 @@ p { line-height: 1.65; }
 .step-visual img { width: 100%; height: 100%; object-fit: cover; }
 .step-card h3 { font-size: 17px; margin-bottom: 8px; }
 .step-card p { font-size: 14px; }
+.step-price { display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 800; color: var(--gold-text); }
+
+/* =========================================================
+   STAT STRIP (case study proof points — big numbers, minimal text)
+   ========================================================= */
+.stat-strip { padding: 70px 0; background: var(--section-tint); }
+.stat-strip-inner { text-align: center; }
+.stat-strip-inner .eyebrow { justify-content: center; }
+.stat-strip-inner h2 { max-width: 720px; margin: 0 auto 40px; }
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 32px; }
+.stat-item { }
+.stat-num { display: block; font-size: 40px; font-weight: 800; color: var(--gold-text); letter-spacing: -0.02em; }
+.stat-label { display: block; font-size: 13.5px; color: var(--text-light); margin-top: 6px; }
 
 /* =========================================================
    WHATSAPP CTA (big green banner)
@@ -555,6 +568,7 @@ p { line-height: 1.65; }
   .hero-visual { order: -1; max-width: 380px; margin: 0 auto 20px; }
   .steps-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid { grid-template-columns: repeat(2, 1fr); }
   .video-inner { grid-template-columns: 1fr; text-align: center; gap: 32px; }
   .video-copy p { margin-left: auto; margin-right: auto; }
