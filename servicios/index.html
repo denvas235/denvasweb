@@ -106,46 +106,35 @@
   .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
   .btn-sm{ padding:10px 20px; font-size:13px; }
 
-  /* Header */
-  header{
-    position:sticky; top:0; z-index:100;
-    background:rgba(249,244,231,0.82);
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--border);
+  /* Header (shared across the site — see partials/navbar.html) */
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(251,247,238,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    transition: padding .3s var(--ease);
   }
-  .nav-wrap{
-    max-width:1180px; margin:0 auto;
-    padding:16px 24px;
-    display:flex; align-items:center; justify-content:space-between;
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 24px;
   }
-  .logo{
-    display:flex; align-items:center; gap:10px;
-    font-weight:800; font-size:18px;
-    text-transform:uppercase;
-    letter-spacing:0.03em;
-    color:var(--ink);
+  .site-header.scrolled .header-inner { padding: 12px 24px; }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 20px; font-weight: 800; color: var(--ink);
+    letter-spacing: 0.01em; text-transform: uppercase;
   }
-  .logo-mark{
-    width:34px; height:34px; border-radius:9px;
-    background:linear-gradient(135deg, var(--gold-light), var(--gold-deep));
-    display:flex; align-items:center; justify-content:center;
-    color:#fff; font-size:15px; font-weight:800;
-  }
-  nav.links{ display:flex; align-items:center; gap:36px; }
-  nav.links a{
-    font-size:14px; font-weight:600; color:var(--text);
-    transition:color .3s var(--ease);
-  }
-  nav.links a:hover{ color:var(--gold); }
-  .nav-cta{ display:flex; align-items:center; gap:14px; }
-  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; }
-  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
-    content:""; display:block; width:22px; height:2px; background:var(--ink);
-    position:relative; transition:.3s;
-  }
-  .nav-toggle span::before{ position:absolute; top:-7px; }
-  .nav-toggle span::after{ position:absolute; top:7px; }
+  .logo-mark { height: 30px; width: 30px; flex-shrink: 0; border-radius: 7px; }
+  .logo-text span { color: var(--gold); }
+  .main-nav { display: flex; gap: 32px; }
+  .main-nav a { color: var(--text); font-size: 14.5px; font-weight: 600; transition: color .2s; }
+  .main-nav a:hover { color: var(--gold); }
+  .header-actions { display: flex; align-items: center; gap: 18px; }
+  .header-call { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 14px; font-weight: 700; white-space: nowrap; transition: color .2s; }
+  .header-call:hover { color: var(--gold); }
+  .call-icon { width: 17px; height: 17px; flex-shrink: 0; }
+  .header-cta { display: inline-flex; }
 
   /* Hero */
   .hero{ padding-top:clamp(56px, 8vw, 96px); }
@@ -412,8 +401,9 @@
     .footer-brand p { margin: 0 auto; }
     .footer-nav, .footer-contact { align-items: center; gap: 10px; }
     .footer-bottom { text-align: center; }
-    nav.links, .nav-cta .btn-ghost{ display:none; }
-    .nav-toggle{ display:block; }
+    .main-nav { display: none; }
+    .header-call { display: none; }
+    .header-cta { padding: 11px 20px; font-size: 12.5px; white-space: nowrap; }
     .hero-grid{ grid-template-columns:1fr; }
     .hero-visual{ order:-1; max-width:420px; margin:0 auto; }
     .services-grid, .why-grid, .process-grid, .pricing-grid, .portfolio-grid{ grid-template-columns:1fr 1fr; }
@@ -438,25 +428,7 @@
 </head>
 <body>
 
-<header>
-  <div class="nav-wrap">
-    <a href="#" class="logo">
-      <img src="https://res.cloudinary.com/kat6qihq/image/upload/f_auto,q_auto,w_160/logo" alt="Denvasweb" style="height:34px; width:auto;">
-      DENVASWEB
-    </a>
-    <nav class="links">
-      <a href="#servicios">Servicios</a>
-      <a href="#portafolio">Portafolio</a>
-      <a href="#precios">Precios</a>
-      <a href="#faq">Preguntas</a>
-    </nav>
-    <div class="nav-cta">
-      <a href="#contacto" class="btn btn-ghost btn-sm">Contáctanos</a>
-      <a href="https://wa.me/19177423657?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Denvasweb" target="_blank" class="btn btn-primary btn-sm">Escríbenos</a>
-    </div>
-    <button class="nav-toggle" aria-label="Abrir menú"><span></span></button>
-  </div>
-</header>
+<!-- INCLUDE:navbar -->
 
 <!-- HERO -->
 <section class="hero">
@@ -807,6 +779,17 @@
 
 
 <script>
+  // ---- Sticky header scroll effect (matches shared navbar on index.html) ----
+  const siteHeader = document.getElementById('site-header');
+  if (siteHeader) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 12) siteHeader.classList.add('scrolled');
+      else siteHeader.classList.remove('scrolled');
+    });
+  }
+</script>
+
+<script>
   // ---- Portfolio data ----
   // Imágenes optimizadas vía Cloudinary (f_auto,q_auto). Cada tarjeta enlaza
   // directo al carrusel en vivo de denvasweb.com/portfolio en el proyecto correspondiente.
@@ -898,14 +881,6 @@
   } else {
     revealEls.forEach(el => el.classList.add('in'));
   }
-
-  // ---- Mobile nav toggle (simple show/hide of links inline) ----
-  const toggle = document.querySelector('.nav-toggle');
-  const links = document.querySelector('nav.links');
-  toggle.addEventListener('click', () => {
-    const isOpen = links.style.display === 'flex';
-    links.style.cssText = isOpen ? '' : 'display:flex; flex-direction:column; position:absolute; top:100%; left:0; right:0; background:var(--off-white); padding:20px 24px; border-bottom:1px solid var(--border);';
-  });
 </script>
 
 <script>
