@@ -388,25 +388,30 @@
   .faq-a{ max-height:0; overflow:hidden; transition:max-height .4s var(--ease); }
   .faq-a-inner{ padding:0 24px 20px; font-size:14px; }
 
-  /* Footer */
-  footer{ background:var(--section-tint); padding:56px 24px 28px; }
-  .footer-grid{
-    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
-    max-width:1180px; margin:0 auto;
+  /* Footer (shared across the site — see partials/footer.html) */
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .site-footer { background: var(--section-tint); padding: 60px 0 20px; }
+  .footer-inner {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px;
+    padding-bottom: 40px; border-bottom: 1px solid var(--border);
   }
-  .footer-brand p{ font-size:14px; margin-top:14px; max-width:280px; }
-  footer h5{ font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink); margin-bottom:16px; }
-  footer ul{ display:flex; flex-direction:column; gap:10px; }
-  footer ul li a{ font-size:14px; color:var(--text); transition:color .3s var(--ease); }
-  footer ul li a:hover{ color:var(--gold); }
-  .footer-bottom{
-    max-width:1180px; margin:40px auto 0; padding-top:24px; border-top:1px solid var(--border);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
-    font-size:13px; color:var(--text-light);
-  }
+  .footer-brand .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--ink); text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 10px; }
+  .footer-brand .logo-mark { height: 30px; width: 30px; flex-shrink: 0; border-radius: 7px; background: none; }
+  .footer-brand .logo-text span { color: var(--gold); }
+  .footer-brand p { color: var(--text-light); font-size: 14px; max-width: 280px; }
+  .footer-nav { display: flex; flex-direction: column; gap: 12px; }
+  .footer-nav a, .footer-contact a { color: var(--text); font-size: 14.5px; font-weight: 600; }
+  .footer-nav a:hover, .footer-contact a:hover { color: var(--gold); }
+  .footer-contact { display: flex; flex-direction: column; gap: 12px; }
+  .footer-bottom { padding-top: 20px; color: var(--text-light); font-size: 13px; }
 
   /* Mobile */
   @media (max-width: 960px){
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+    .footer-brand .logo { justify-content: center; }
+    .footer-brand p { margin: 0 auto; }
+    .footer-nav, .footer-contact { align-items: center; gap: 10px; }
+    .footer-bottom { text-align: center; }
     nav.links, .nav-cta .btn-ghost{ display:none; }
     .nav-toggle{ display:block; }
     .hero-grid{ grid-template-columns:1fr; }
@@ -798,41 +803,8 @@
   </div>
 </section>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="#" class="logo"><img src="https://res.cloudinary.com/kat6qihq/image/upload/f_auto,q_auto,w_160/logo" alt="Denvasweb" style="height:34px; width:auto;">DENVASWEB</a>
-      <p>Diseño web, menús digitales y marketing para negocios locales, con un enfoque bilingüe y directo.</p>
-    </div>
-    <div>
-      <h5>Servicios</h5>
-      <ul>
-        <li><a href="#servicios">Sitios web</a></li>
-        <li><a href="#servicios">Menú digital QR</a></li>
-        <li><a href="#servicios">Marketing digital</a></li>
-      </ul>
-    </div>
-    <div>
-      <h5>Compañía</h5>
-      <ul>
-        <li><a href="#portafolio">Portafolio</a></li>
-        <li><a href="#precios">Precios</a></li>
-        <li><a href="#faq">Preguntas</a></li>
-      </ul>
-    </div>
-    <div>
-      <h5>Contacto</h5>
-      <ul>
-        <li><a href="https://wa.me/19177423657" target="_blank">WhatsApp</a></li>
-        <li><a href="#contacto">Formulario</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Denvasweb. Todos los derechos reservados.</span>
-    <span>Hecho con cuidado en Nueva York</span>
-  </div>
-</footer>
+<!-- INCLUDE:footer -->
+
 
 <script>
   // ---- Portfolio data ----
