@@ -284,41 +284,42 @@
     }
   });
 
-  // Al enviar el formulario: se guarda el lead (Formspree, vía script.js) y luego se abre WhatsApp con el mensaje ya escrito.
+  // Al enviar: se abre WhatsApp de inmediato con el mensaje ya escrito, y el lead se guarda en Formspree en segundo plano.
   (function(){
     const form = document.getElementById('contact-form');
-    const status = document.getElementById('form-status');
-    if (!form || !status) return;
-    let pendingUrl = null;
+    if (!form) return;
+    const btn = form.querySelector('button[type="submit"]');
+    const label = btn.innerHTML;
 
-    form.addEventListener('submit', function(){
+    // Captura en document para adelantarse al envío (más lento) de script.js
+    document.addEventListener('submit', function(e){
+      if (e.target !== form) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+
       const d = new FormData(form);
       const msg = 'Hola, vi el video de Tree Service y quiero más información.\n\n' +
                   'Nombre: ' + d.get('name') + '\n' +
                   'Negocio: ' + d.get('business') + '\n' +
                   'WhatsApp/Teléfono: ' + d.get('phone');
-      pendingUrl = 'https://wa.me/19177423657?text=' + encodeURIComponent(msg);
+
+      btn.disabled = true;
+      btn.textContent = 'Abriendo WhatsApp…';
+
+      // keepalive: el envío sigue aunque la página cambie a WhatsApp
+      try {
+        fetch(form.action, { method: 'POST', body: d, headers: { 'Accept': 'application/json' }, keepalive: true }).catch(function(){});
+      } catch (err) {}
+
+      window.location.href = 'https://wa.me/19177423657?text=' + encodeURIComponent(msg);
+    }, true);
+
+    // Si la persona vuelve desde WhatsApp (botón atrás), el formulario queda listo de nuevo
+    window.addEventListener('pageshow', function(){
+      btn.disabled = false;
+      btn.innerHTML = label;
+      form.reset();
     });
-
-    new MutationObserver(function(){
-      if (!pendingUrl || !status.textContent.trim()) return;
-      const url = pendingUrl;
-      pendingUrl = null;
-      if (status.textContent.indexOf('Gracias') === 0) {
-        status.textContent = 'Listo — abriendo WhatsApp con tu mensaje…';
-      }
-      setTimeout(function(){ window.location.href = url; }, 900);
-    }).observe(status, { childList: true, characterData: true, subtree: true });
-  })();
-
-  // script.js vuelve a poner "Enviar mensaje" en el botón después de enviar; aquí se restaura el texto de esta landing.
-  (function(){
-    const btn = document.querySelector('#contact-form button[type="submit"]');
-    if (!btn) return;
-    const label = btn.innerHTML;
-    new MutationObserver(function(){
-      if (btn.textContent.trim() === 'Enviar mensaje') btn.innerHTML = label;
-    }).observe(btn, { childList: true, characterData: true, subtree: true });
   })();
 </script>
 </body>
