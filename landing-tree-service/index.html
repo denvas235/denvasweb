@@ -9,6 +9,21 @@
   gtag('js', new Date());
   gtag('config', 'G-FTLBBM3H6V');
 </script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1073020090560720');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1073020090560720&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
@@ -118,6 +133,8 @@
 .lp-trust li { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.7); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 17px; font-weight: 700; line-height: 1.25; color: var(--ink); }
 .lp-trust svg { width: 22px; height: 22px; }
 .lp-ready { font-size: clamp(22px, 3.6vw, 28px); margin-bottom: 14px; }
+.lp-legal { margin-top: 22px; font-size: 13px; color: var(--text); }
+.lp-legal a { text-decoration: underline; }
 
 @media (max-width: 720px) {
   .hero.lp-hero {
@@ -266,6 +283,7 @@
           Prefiero escribir por WhatsApp
         </a>
       </div>
+      <p class="lp-legal"><a href="/privacidad/" target="_blank" rel="noopener">Política de privacidad</a></p>
     </div>
   </section>
 
@@ -273,18 +291,22 @@
 
 <script src="/script.js"></script>
 <script>
-  // Evento GA4: clic en cualquier enlace de WhatsApp (wa.me)
+  const NICHO = 'Tree Service';
+
+  // Clic en cualquier enlace de WhatsApp (wa.me): GA4 + Meta
   document.addEventListener('click', function(e){
     const link = e.target.closest('a[href*="wa.me"]');
-    if (link && typeof gtag === 'function') {
-      gtag('event', 'click_whatsapp', {
-        link_url: link.href,
-        page_location: window.location.href
-      });
+    if (!link) return;
+    if (typeof gtag === 'function') {
+      gtag('event', 'click_whatsapp', { link_url: link.href, page_location: window.location.href });
+    }
+    if (typeof fbq === 'function') {
+      fbq('track', 'Contact', { content_name: NICHO });
     }
   });
 
-  // Al enviar: se abre WhatsApp de inmediato con el mensaje ya escrito, y el lead se guarda en Formspree en segundo plano.
+  // Al enviar el formulario: se mide el lead (GA4 + Meta), se abre WhatsApp con el mensaje ya escrito
+  // y el lead se guarda en Formspree en segundo plano.
   (function(){
     const form = document.getElementById('contact-form');
     if (!form) return;
@@ -306,12 +328,23 @@
       btn.disabled = true;
       btn.textContent = 'Abriendo WhatsApp…';
 
+      // Medición del lead (sin datos personales)
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', { content_name: NICHO, form_type: 'landing-tree-service', transport_type: 'beacon' });
+      }
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', { content_name: NICHO });
+      }
+
       // keepalive: el envío sigue aunque la página cambie a WhatsApp
       try {
         fetch(form.action, { method: 'POST', body: d, headers: { 'Accept': 'application/json' }, keepalive: true }).catch(function(){});
       } catch (err) {}
 
-      window.location.href = 'https://wa.me/19177423657?text=' + encodeURIComponent(msg);
+      // Pausa mínima para que salgan los eventos de medición antes de cambiar de página
+      setTimeout(function(){
+        window.location.href = 'https://wa.me/19177423657?text=' + encodeURIComponent(msg);
+      }, 250);
     }, true);
 
     // Si la persona vuelve desde WhatsApp (botón atrás), el formulario queda listo de nuevo
