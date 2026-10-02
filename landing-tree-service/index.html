@@ -184,8 +184,12 @@ fbq('track', 'PageView');
       <p class="lp-sub reveal" data-reveal="1">Soy Denys. Creo o mejoro tu perfil de Google para que aparezcas en Google Maps, y te armo tu sitio web.</p>
 
       <div id="contact" class="reveal" data-reveal="2">
-        <form class="contact-form lp-form" id="contact-form" action="https://formspree.io/f/mqeoakpw" method="POST">
+        <form class="contact-form lp-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="form_type" value="landing-tree-service">
+          <input type="hidden" name="access_key" value="dbee7750-8d61-47d3-8e6d-96da792c260d">
+          <input type="hidden" name="subject" value="Nuevo lead: landing Tree Service">
+          <input type="hidden" name="from_name" value="Landing Tree Service - Denvasweb">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <div class="form-field">
             <label for="name">Nombre</label>
             <input type="text" id="name" name="name" autocomplete="name" required>
@@ -306,7 +310,7 @@ fbq('track', 'PageView');
   });
 
   // Al enviar el formulario: se mide el lead (GA4 + Meta), se abre WhatsApp con el mensaje ya escrito
-  // y el lead se guarda en Formspree en segundo plano.
+  // y el lead se envía a Web3Forms (a tu correo) en segundo plano.
   (function(){
     const form = document.getElementById('contact-form');
     if (!form) return;
