@@ -93,7 +93,9 @@ fbq('track', 'PageView');
 .lp-wa:hover svg { fill: #fff; }
 
 /* Bloque 2: ¿Tienes un negocio de servicios? */
-.lp-who { background: var(--white); padding: 28px 0 26px; text-align: center; }
+.lp-who { background: var(--white); padding: 18px 0 26px; text-align: center; }
+.lp-banner { max-width: 980px; margin: 0 auto 8px; }
+.lp-banner img { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, #000 78%, transparent 100%); }
 .lp-who h2, .lp-how h2, .lp-final h2 { font-size: clamp(25px, 4vw, 33px); margin-bottom: 8px; }
 .lp-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 640px; margin: 16px auto 0; }
 .lp-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--gold-light); border-radius: 999px; background: var(--off-white); font-weight: 700; font-size: 16px; color: var(--ink); }
@@ -203,6 +205,10 @@ fbq('track', 'PageView');
   <!-- BLOQUE 2: IDENTIFICACIÓN -->
   <section class="lp-who">
     <div class="container">
+      <picture class="lp-banner">
+        <source media="(max-width: 720px)" srcset="/images/negocios-banner-m.webp" width="800" height="426">
+        <img src="/images/negocios-banner.webp" width="1600" height="614" alt="Profesionales hispanos de servicios del hogar: pintura, limpieza, árboles y jardinería" loading="lazy" decoding="async">
+      </picture>
       <h2>¿Tienes un negocio de servicios?</h2>
       <div class="lp-chips">
         <span class="lp-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Tree Service</span>
