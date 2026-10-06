@@ -98,6 +98,34 @@
     </div>
   </section>
 
+  <!-- CTA / FORM -->
+  <section class="contact" id="contact">
+    <div class="container contact-inner">
+      <div class="contact-copy">
+        <span class="eyebrow eyebrow-light">Empecemos</span>
+        <h2>Hablemos de tu proyecto.</h2>
+        <p>Déjanos tus datos y te contactamos con los siguientes pasos.</p>
+      </div>
+
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/mqeoakpw" method="POST">
+        <div class="form-field">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="form-field">
+          <label for="phone">Teléfono</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" required>
+        </div>
+        <div class="form-field">
+          <label for="business">Nombre del negocio</label>
+          <input type="text" id="business" name="business" autocomplete="organization" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-full">Enviar mensaje</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
   <!-- VIDEO -->
   <section class="video-showcase" id="video">
     <div class="container video-inner">
@@ -241,57 +269,6 @@
           <a href="https://denvasweb.com/servicios.html" class="btn btn-ghost btn-sm">Ver todos</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- CTA / FORM -->
-  <section class="contact" id="contact">
-    <div class="container contact-inner">
-      <div class="contact-copy">
-        <span class="eyebrow eyebrow-light">Empecemos</span>
-        <h2>Hablemos de tu proyecto.</h2>
-        <p>Cuéntanos sobre tu negocio y te respondemos con los siguientes pasos.</p>
-      </div>
-
-      <form class="contact-form" id="contact-form" action="https://formspree.io/f/mqeoakpw" method="POST">
-        <div class="form-row">
-          <div class="form-field">
-            <label for="name">Nombre</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="form-field">
-            <label for="business">Negocio</label>
-            <input type="text" id="business" name="business" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div class="form-field">
-            <label for="phone">Teléfono</label>
-            <input type="tel" id="phone" name="phone">
-          </div>
-        </div>
-        <div class="form-field">
-          <label for="service">Servicio que te interesa</label>
-          <select id="service" name="service" required>
-            <option value="">Selecciona una opción</option>
-            <option value="Website">Website</option>
-            <option value="Web App">Web App</option>
-            <option value="Meta Ads">Meta Ads</option>
-            <option value="Google Ads">Google Ads</option>
-            <option value="No estoy seguro">No estoy seguro</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="message">Mensaje</label>
-          <textarea id="message" name="message" rows="4"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-full">Enviar mensaje</button>
-        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-      </form>
     </div>
   </section>
 
